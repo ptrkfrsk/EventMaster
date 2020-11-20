@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "402048861722",
+    "firebase_url": "https://eventmaster-630f3.firebaseio.com",
+    "project_id": "eventmaster-630f3",
+    "storage_bucket": "eventmaster-630f3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402048861722:android:4e944b033c29e9882933a3",
+        "android_client_info": {
+          "package_name": "com.example.eventmaster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402048861722-2heinmuo4h6sc7utm3kdlk2od5n0cgss.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_NtrAcn9clCFtKrRMnobfpoFHom5bmFU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402048861722-2heinmuo4h6sc7utm3kdlk2od5n0cgss.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
