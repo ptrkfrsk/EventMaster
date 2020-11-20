@@ -1,14 +1,11 @@
 package com.example.eventmaster
-
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -18,7 +15,10 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
         auth = FirebaseAuth.getInstance()
 
+        val buttonSuSignUp = findViewById<Button>(R.id.buttonSuSignUp)
         buttonSuSignUp.setOnClickListener(){
+            val editTextSuEmail = findViewById<EditText>(R.id.editTextSuEmail)
+            val editTextSuPassword = findViewById<EditText>(R.id.editTextSuPassword)
             createUser(editTextSuEmail.text.toString(), editTextSuPassword.text.toString())
         }
     }

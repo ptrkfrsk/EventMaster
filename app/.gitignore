@@ -1,1 +1,5 @@
 /build
+/caches
+/daemon
+/wrapper
+/native
