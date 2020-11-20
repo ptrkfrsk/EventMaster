@@ -1,5 +1,6 @@
 package com.example.eventmaster
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,15 +24,23 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun createUser(email : String, password: String) {
+        if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
+            Toast.makeText(this, "Puste pole adresu email lub hasła", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(baseContext, "Pomyślnie zarejestrowano", Toast.LENGTH_SHORT).show()
-                    val user = auth.currentUser
                     startActivity(Intent(this, LoginActivity::class.java))
                 } else {
                     Toast.makeText(baseContext, "Nie udało się zarejestrować", Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 }

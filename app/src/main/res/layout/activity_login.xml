@@ -43,7 +43,7 @@
         android:layout_width="172dp"
         android:layout_height="50dp"
         android:layout_marginBottom="44dp"
-        android:text="Zarejestruj"
+        android:text="Nie masz konta?"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
