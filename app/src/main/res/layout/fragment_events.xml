@@ -6,17 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".ui.events.EventsFragment">
 
-    <TextView
-        android:id="@+id/text_dashboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Button
+        android:id="@+id/buttonSearchEvent"
+        android:layout_width="164dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="140dp"
+        android:text="Wyszukaj"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonAddEvent"
+        android:layout_width="167dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="28dp"
+        android:text="Dodaj"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSearchEvent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
