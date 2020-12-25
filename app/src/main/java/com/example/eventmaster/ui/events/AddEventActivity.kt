@@ -8,6 +8,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.Toast
 import com.example.eventmaster.LoginActivity
 import com.example.eventmaster.MainActivity
 import com.example.eventmaster.R
@@ -31,10 +32,11 @@ class AddEventActivity : AppCompatActivity() {
         buttonAdd.setOnClickListener{
             addEventToDatabase(database)
         }
-        // Write a message to the database
 
-        //val myRef = database.getReference("message");
-        //myRef.setValue("Hello, World!");
+        val buttonCancel = findViewById<Button>(R.id.buttonAddEventCancel);
+        buttonCancel.setOnClickListener{
+            updateUI()
+        }
     }
 
     override fun onBackPressed() {
@@ -51,17 +53,34 @@ class AddEventActivity : AppCompatActivity() {
         val isPaidComponent = findViewById<CheckBox>(R.id.checkBoxAddEventPaid)
         val priceComponent = findViewById<EditText>(R.id.editDecimalAddEventPrice)
 
+        if (
+            nameComponent.text.isNullOrEmpty() ||
+            descriptionComponent.text.isNullOrEmpty() ||
+            locationComponent.text.isNullOrEmpty() ||
+            participantNumberComponent.text.isNullOrEmpty()
+        ) {
+            Toast.makeText(this, "Puste pola - nie można dodać wydarzenia", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+
         val event = Event(
             nameComponent.text.toString(),
             descriptionComponent.text.toString(),
             null,
             locationComponent.text.toString(),
+            participantNumberComponent.text.toString().toInt(),
             isPrivateComponent.isChecked,
             isPaidComponent.isChecked,
             null
         )
 
         val eventsRef = database.getReference("Events");
-        eventsRef.setValue("${event.name}")
+        eventsRef.setValue(event)
+        updateUI()
+    }
+
+    private fun updateUI() {
+        startActivity(Intent(this, MainActivity::class.java))
     }
 }

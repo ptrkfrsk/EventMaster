@@ -6,11 +6,8 @@ class Event(
     val description: String,
     val date: LocalDateTime?,
     val location: String,
+    val participantNumber: Int,
     val private: Boolean,
     val paid: Boolean,
     val price: Double?) {
-
-    fun toJSON() {
-
-    }
 }
