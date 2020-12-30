@@ -75,8 +75,14 @@ class AddEventActivity : AppCompatActivity() {
             null
         )
 
-        val eventsRef = database.getReference("Events");
-        eventsRef.setValue(event)
+        val eventsRef = database.getReference("/Events");
+        val key = eventsRef.push().key
+        if (key != null) {
+            eventsRef.child(key).setValue(event).addOnCompleteListener{
+                Toast.makeText(this, "Dodano do bazy", Toast.LENGTH_SHORT).show()
+            }
+        }
+        //eventsRef.setValue(event)
         updateUI()
     }
 

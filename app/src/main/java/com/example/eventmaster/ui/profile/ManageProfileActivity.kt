@@ -1,0 +1,81 @@
+package com.example.eventmaster.ui.profile
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Log
+import android.view.Window
+import android.widget.Button
+import android.widget.EditText
+import com.example.eventmaster.MainActivity
+import com.example.eventmaster.R
+import com.example.eventmaster.models.Person
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+
+class ManageProfileActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
+        supportActionBar?.hide(); // hide the title bar
+        setContentView(R.layout.activity_manage_profile)
+
+        loadUserData()
+
+        val buttonSave= findViewById<Button>(R.id.buttonManageProfileSave)
+        buttonSave.setOnClickListener{
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+
+        val buttonCancel= findViewById<Button>(R.id.buttonManageProfileCancel)
+        buttonCancel.setOnClickListener{
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+    }
+
+    private fun loadUserData() {
+        val ref = FirebaseDatabase.getInstance().getReference("People")
+        val nameComponent = findViewById<EditText>(R.id.editTextManageProfileName)
+        val surnameComponent = findViewById<EditText>(R.id.editTextManageProfileSurname)
+        val phoneComponent = findViewById<EditText>(R.id.editTextManageProfilePhone)
+        val addressComponent = findViewById<EditText>(R.id.editTextManageProfileAddress)
+        val accountComponent = findViewById<EditText>(R.id.editTextManageProfileAccount)
+        val emailComponent = findViewById<EditText>(R.id.editTextManageProfileEmail)
+        val passwordComponent = findViewById<EditText>(R.id.editTextManageProfilePassword)
+        val listener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                //val peopleList = dataSnapshot.children.map { it.getValue(Person::class.java) }
+                var person : Person? = null
+                dataSnapshot.children.forEach {
+                    val personObj = it.value as HashMap<*, *>
+                    person = Person(
+                            name = personObj ["name"].toString(),
+                            surname = personObj ["surname"].toString(),
+                            phone = personObj ["phone"].toString(),
+                            address = personObj ["address"].toString(),
+                            account = personObj ["account"].toString(),
+                            email = personObj ["email"].toString()
+                    )
+                }
+
+                nameComponent.setText(person?.name)
+                surnameComponent.setText(person?.surname)
+                phoneComponent.setText(person?.phone)
+                addressComponent.setText(person?.address)
+                accountComponent.setText(person?.account)
+                emailComponent.setText(person?.email)
+                //passwordComponent.setText(person?.name)
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                // handle error
+            }
+        }
+        ref.addListenerForSingleValueEvent(listener)
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this, MainActivity::class.java))
+    }
+}

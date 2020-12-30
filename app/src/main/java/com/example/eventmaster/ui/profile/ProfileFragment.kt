@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.eventmaster.LoginActivity
 import com.example.eventmaster.R
+import com.example.eventmaster.ui.events.AddEventActivity
 import com.google.android.material.internal.ContextUtils
 import com.google.firebase.auth.FirebaseAuth
 
@@ -32,6 +33,12 @@ class ProfileFragment : Fragment() {
         val buttonLogout: Button = root.findViewById(R.id.buttonLogout)
         buttonLogout.setOnClickListener{
             logoutUser()
+        }
+
+        val buttonManage: Button = root.findViewById(R.id.buttonManageProfile)
+        buttonManage.setOnClickListener{
+            val intent = Intent (activity, ManageProfileActivity::class.java)
+            activity?.startActivity(intent)
         }
 
         return root
