@@ -10,6 +10,7 @@ import android.widget.EditText
 import com.example.eventmaster.MainActivity
 import com.example.eventmaster.R
 import com.example.eventmaster.models.Person
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -36,6 +37,7 @@ class ManageProfileActivity : AppCompatActivity() {
     }
 
     private fun loadUserData() {
+        val auth = FirebaseAuth.getInstance()
         val ref = FirebaseDatabase.getInstance().getReference("People")
         val nameComponent = findViewById<EditText>(R.id.editTextManageProfileName)
         val surnameComponent = findViewById<EditText>(R.id.editTextManageProfileSurname)
@@ -66,7 +68,6 @@ class ManageProfileActivity : AppCompatActivity() {
                 addressComponent.setText(person?.address)
                 accountComponent.setText(person?.account)
                 emailComponent.setText(person?.email)
-                //passwordComponent.setText(person?.name)
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 // handle error
