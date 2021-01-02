@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
+import android.widget.Button
 import com.example.eventmaster.MainActivity
 import com.example.eventmaster.R
 
@@ -13,6 +14,11 @@ class TicketsActivity : AppCompatActivity() {
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
         supportActionBar?.hide(); // hide the title bar
         setContentView(R.layout.activity_tickets)
+
+        val buttonBack = findViewById<Button>(R.id.buttonMyTicketsBack)
+        buttonBack.setOnClickListener{
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 
     override fun onBackPressed() {

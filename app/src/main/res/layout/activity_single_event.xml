@@ -8,19 +8,18 @@
 
     <TextView
         android:id="@+id/textViewSingleEventName"
-        android:layout_width="159dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="104dp"
+        android:layout_width="284dp"
+        android:layout_height="166dp"
         android:layout_marginTop="44dp"
-        android:text="TextView"
-        android:textSize="30sp"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonSingleEventCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="129dp"
+        android:layout_height="51dp"
         android:layout_marginStart="44dp"
         android:layout_marginBottom="48dp"
         android:text="Anuluj"
@@ -29,11 +28,41 @@
 
     <Button
         android:id="@+id/buttonSingleEventJoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="134dp"
+        android:layout_height="51dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="48dp"
         android:text="Dołącz"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewSingleEventDescription"
+        android:layout_width="284dp"
+        android:layout_height="118dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="12dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSingleEventName" />
+
+    <TextView
+        android:id="@+id/textViewSingleEventDate"
+        android:layout_width="281dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSingleEventDescription" />
+
+    <TextView
+        android:id="@+id/textViewSingleEventLocation"
+        android:layout_width="280dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSingleEventDate" />
 </androidx.constraintlayout.widget.ConstraintLayout>

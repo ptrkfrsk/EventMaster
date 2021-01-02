@@ -1,6 +1,7 @@
 package com.example.eventmaster.ui.events
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
@@ -9,6 +10,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.example.eventmaster.LoginActivity
 import com.example.eventmaster.MainActivity
 import com.example.eventmaster.R
@@ -21,12 +23,13 @@ import java.time.LocalDateTime
 import java.util.*
 
 class AddEventActivity : AppCompatActivity() {
+    private lateinit var database: FirebaseDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
         supportActionBar?.hide(); // hide the title bar
         setContentView(R.layout.activity_add_event)
-        val database = FirebaseDatabase.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         val buttonAdd = findViewById<Button>(R.id.buttonAddEventAdd);
         buttonAdd.setOnClickListener{
@@ -67,7 +70,7 @@ class AddEventActivity : AppCompatActivity() {
         val event = Event(
             nameComponent.text.toString(),
             descriptionComponent.text.toString(),
-            null,
+            null,//LocalDateTime.parse(dateComponent.text.toString()),
             locationComponent.text.toString(),
             participantNumberComponent.text.toString().toInt(),
             isPrivateComponent.isChecked,

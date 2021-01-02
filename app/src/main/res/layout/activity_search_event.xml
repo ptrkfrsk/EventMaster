@@ -18,8 +18,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:layout_width="370dp"
-        android:layout_height="638dp"
+        android:layout_width="371dp"
+        android:layout_height="542dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,4 +31,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
+
+    <Button
+        android:id="@+id/buttonSearchEventsBack"
+        android:layout_width="119dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="36dp"
+        android:text="Powrót"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

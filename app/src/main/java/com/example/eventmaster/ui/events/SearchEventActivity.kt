@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.Window
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -17,6 +18,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.io.Serializable
 import java.lang.Boolean.parseBoolean
 import java.lang.Integer.parseInt
 import java.time.LocalDateTime
@@ -28,22 +30,12 @@ class SearchEventActivity : AppCompatActivity() {
         supportActionBar?.hide(); // hide the title bar
         setContentView(R.layout.activity_search_event)
 
-//        val scrollLayout = findViewById<LinearLayout>(R.id.layoutScrollSearchEvent)
-//        for (i in 1..100) {
-//            val singleEventLayout = LinearLayout(this)
-//            singleEventLayout.setPadding(0,30,0,30)
-//            val textViewSingleEvent = TextView(this)
-//            textViewSingleEvent.text = "Nazwa wydarzenia\n01.01.2021"
-//            textViewSingleEvent.textSize = 20f
-//            textViewSingleEvent.textAlignment = View.TEXT_ALIGNMENT_CENTER
-//            singleEventLayout.addView(textViewSingleEvent)
-//            singleEventLayout.setOnClickListener{
-//                startActivity(Intent(this, SingleEventActivity::class.java))
-//            }
-//            scrollLayout.addView(singleEventLayout)
-//        }
-        loadEventsData()
+        val buttonBack = findViewById<Button>(R.id.buttonSearchEventsBack)
+        buttonBack.setOnClickListener{
+            startActivity(Intent(this, MainActivity::class.java))
+        }
 
+        loadEventsData()
     }
 
     private fun loadEventsData() {
@@ -60,6 +52,7 @@ class SearchEventActivity : AppCompatActivity() {
                 var counter = 0
                 dataSnapshot.children.forEach {
                     val eventObj = it.value as HashMap<*, *>
+                    val eventId = it.key
                     val event = Event(
                         name = eventObj["name"].toString(),
                         description = eventObj["description"].toString(),
@@ -80,24 +73,12 @@ class SearchEventActivity : AppCompatActivity() {
                     textViewSingleEvent.textAlignment = View.TEXT_ALIGNMENT_CENTER
                     singleEventLayout.addView(textViewSingleEvent)
                     singleEventLayout.setOnClickListener{
-                        //startActivity(intent)
-                        passEventObject(intent, eventList[singleEventLayout.tag as Int])
+                        passEventObject(intent, eventList[singleEventLayout.tag as Int], eventId as String)
                     }
                     scrollLayout.addView(singleEventLayout)
                     counter++
                 }
             }
-
-//            class Event(
-//                val name: String,
-//                val description: String,
-//                val date: LocalDateTime?,
-//                val location: String,
-//                val participantNumber: Int,
-//                val private: Boolean,
-//                val paid: Boolean,
-//                val price: Double?) {
-//            }
 
             override fun onCancelled(databaseError: DatabaseError) {
                 // handle error
@@ -110,8 +91,12 @@ class SearchEventActivity : AppCompatActivity() {
 
     }
 
-    private fun passEventObject(intent : Intent, event : Event) {
-        Toast.makeText(this, event.name, Toast.LENGTH_SHORT).show()
+    private fun passEventObject(intent : Intent, event : Event, eventId : String) {
+        //Toast.makeText(this, event.name, Toast.LENGTH_SHORT).show()
+        intent.putExtra("event", event as Serializable)
+        intent.putExtra("eventId",  eventId)
+
+        startActivity(intent)
     }
 
     override fun onBackPressed() {
