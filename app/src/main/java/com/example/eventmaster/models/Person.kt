@@ -1,5 +1,6 @@
 package com.example.eventmaster.models
 
+import java.io.Serializable
 import java.time.LocalDateTime
 
 class Person(
@@ -8,5 +9,5 @@ class Person(
         var phone: String,
         var address: String,
         var account: String,
-        var email: String) {
+        var email: String) : Serializable {
 }

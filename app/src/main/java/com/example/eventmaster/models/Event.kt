@@ -1,4 +1,5 @@
 package com.example.eventmaster.models
+import java.io.Serializable
 import java.time.LocalDateTime
 
 class Event(
@@ -9,5 +10,5 @@ class Event(
     val participantNumber: Int,
     val private: Boolean,
     val paid: Boolean,
-    val price: Double?) {
+    val price: Double?) : Serializable {
 }

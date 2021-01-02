@@ -51,33 +51,40 @@ class SearchEventActivity : AppCompatActivity() {
         val scrollLayout = findViewById<LinearLayout>(R.id.layoutScrollSearchEvent)
         val intent = Intent(this, SingleEventActivity::class.java)
         val context = this
+        val eventList = arrayListOf<Event>()
 
         val listener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var person: Person? = null
-                var event : Event? = null
+                //var event : Event? = null
+                var counter = 0
                 dataSnapshot.children.forEach {
                     val eventObj = it.value as HashMap<*, *>
-//                    event = Event(
-//                        name = eventObj["name"].toString(),
-//                        description = eventObj["description"].toString(),
-//                        date = null,/*eventObj["date"].toString(),*/
-//                        location = eventObj["location"].toString(),
-//                        participantNumber =  parseInt(eventObj["participantNumber"].toString()),
-//                        private = parseBoolean(eventObj["private"].toString()),
-//                        paid = parseBoolean(eventObj["paid"].toString()),
-//                    )
+                    val event = Event(
+                        name = eventObj["name"].toString(),
+                        description = eventObj["description"].toString(),
+                        date = null,/*eventObj["date"].toString(),*/
+                        location = eventObj["location"].toString(),
+                        participantNumber =  parseInt(eventObj["participantNumber"].toString()),
+                        private = parseBoolean(eventObj["private"].toString()),
+                        paid = parseBoolean(eventObj["paid"].toString()),
+                        price = null
+                    )
+                    eventList.add(event)
                     val singleEventLayout = LinearLayout(context)
                     singleEventLayout.setPadding(0,30,0,30)
+                    singleEventLayout.tag = counter
                     val textViewSingleEvent = TextView(context)
                     textViewSingleEvent.text = eventObj["name"].toString()
                     textViewSingleEvent.textSize = 20f
                     textViewSingleEvent.textAlignment = View.TEXT_ALIGNMENT_CENTER
                     singleEventLayout.addView(textViewSingleEvent)
                     singleEventLayout.setOnClickListener{
-                        startActivity(intent)
+                        //startActivity(intent)
+                        passEventObject(intent, eventList[singleEventLayout.tag as Int])
                     }
                     scrollLayout.addView(singleEventLayout)
+                    counter++
                 }
             }
 
@@ -101,6 +108,10 @@ class SearchEventActivity : AppCompatActivity() {
 
     private fun createSingleEventComponent() {
 
+    }
+
+    private fun passEventObject(intent : Intent, event : Event) {
+        Toast.makeText(this, event.name, Toast.LENGTH_SHORT).show()
     }
 
     override fun onBackPressed() {
