@@ -48,18 +48,21 @@ class ManageProfileActivity : AppCompatActivity() {
         val passwordComponent = findViewById<EditText>(R.id.editTextManageProfilePassword)
         val listener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                //val peopleList = dataSnapshot.children.map { it.getValue(Person::class.java) }
                 var person : Person? = null
-                dataSnapshot.children.forEach {
+                val currentEmail = auth.currentUser?.email
+                dataSnapshot.children.forEach{
                     val personObj = it.value as HashMap<*, *>
-                    person = Person(
-                            name = personObj ["name"].toString(),
-                            surname = personObj ["surname"].toString(),
-                            phone = personObj ["phone"].toString(),
-                            address = personObj ["address"].toString(),
-                            account = personObj ["account"].toString(),
-                            email = personObj ["email"].toString()
-                    )
+                    if (currentEmail.equals(personObj ["email"].toString())) {
+                        person = Person(
+                                name = personObj ["name"].toString(),
+                                surname = personObj ["surname"].toString(),
+                                phone = personObj ["phone"].toString(),
+                                address = personObj ["address"].toString(),
+                                account = personObj ["account"].toString(),
+                                email = personObj ["email"].toString()
+                        )
+                        return@forEach
+                    }
                 }
 
                 nameComponent.setText(person?.name)
