@@ -18,14 +18,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:layout_width="368dp"
-        android:layout_height="517dp"
+        android:id="@+id/scrollViewMyTickets"
+        android:layout_width="371dp"
+        android:layout_height="534dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView20">
 
         <LinearLayout
+            android:id="@+id/layoutScrollMyTickets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />

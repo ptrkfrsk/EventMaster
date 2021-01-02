@@ -24,11 +24,14 @@ import java.lang.Integer.parseInt
 import java.time.LocalDateTime
 
 class SearchEventActivity : AppCompatActivity() {
+    private lateinit var database: FirebaseDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
         supportActionBar?.hide(); // hide the title bar
         setContentView(R.layout.activity_search_event)
+
+        database = FirebaseDatabase.getInstance()
 
         val buttonBack = findViewById<Button>(R.id.buttonSearchEventsBack)
         buttonBack.setOnClickListener{
@@ -39,7 +42,7 @@ class SearchEventActivity : AppCompatActivity() {
     }
 
     private fun loadEventsData() {
-        val ref = FirebaseDatabase.getInstance().getReference("Events")
+        val ref = database.getReference("Events")
         val scrollLayout = findViewById<LinearLayout>(R.id.layoutScrollSearchEvent)
         val intent = Intent(this, SingleEventActivity::class.java)
         val context = this
