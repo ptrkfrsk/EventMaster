@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.io.Serializable
 import java.lang.Boolean
 
 class TicketsActivity : AppCompatActivity() {
@@ -45,6 +46,8 @@ class TicketsActivity : AppCompatActivity() {
         val scrollLayout = findViewById<LinearLayout>(R.id.layoutScrollMyTickets)
         //val intent = Intent(this, TicketsActivity::class.java)
         val context = this
+        val ticketList = arrayListOf<Ticket>()
+        var counter = 0
 
         val listener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -57,18 +60,21 @@ class TicketsActivity : AppCompatActivity() {
                                 eventId = ticketObj["eventId"].toString(),
                                 clientEmail = clientEmailFromTicket
                         )
+                        ticketList.add(ticket)
                         val singleTicketLayout = LinearLayout(context)
                         singleTicketLayout.setPadding(0, 30, 0, 30)
+                        singleTicketLayout.tag = counter
                         val textViewSingleTicket = TextView(context)
                         textViewSingleTicket.text = ticketId
                         textViewSingleTicket.textSize = 20f
                         textViewSingleTicket.textAlignment = View.TEXT_ALIGNMENT_CENTER
                         singleTicketLayout.addView(textViewSingleTicket)
                         singleTicketLayout.setOnClickListener{
-                            passTicketObject()
+                            passTicketObject(ticketList[singleTicketLayout.tag as Int])
                         }
                         scrollLayout.addView(singleTicketLayout)
                     }
+                    counter++
                 }
             }
 
@@ -79,8 +85,10 @@ class TicketsActivity : AppCompatActivity() {
         ref.addListenerForSingleValueEvent(listener)
     }
 
-    private fun passTicketObject() {
-        startActivity(Intent(this, SingleTicketActivity::class.java))
+    private fun passTicketObject(ticket : Ticket) {
+        val intent = Intent(this, SingleTicketActivity::class.java)
+        intent.putExtra("ticket", ticket as Serializable)
+        startActivity(intent)
     }
 
     override fun onBackPressed() {
