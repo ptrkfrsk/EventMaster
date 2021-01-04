@@ -59,10 +59,9 @@ class SearchEventActivity : AppCompatActivity() {
                     val event = Event(
                         name = eventObj["name"].toString(),
                         description = eventObj["description"].toString(),
-                        date = null,/*eventObj["date"].toString(),*/
+                        date = eventObj["date"].toString(),
                         location = eventObj["location"].toString(),
                         participantNumber =  parseInt(eventObj["participantNumber"].toString()),
-                        private = parseBoolean(eventObj["private"].toString()),
                         paid = parseBoolean(eventObj["paid"].toString()),
                         price = null
                     )

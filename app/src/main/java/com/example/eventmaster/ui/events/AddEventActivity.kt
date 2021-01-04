@@ -1,25 +1,17 @@
 package com.example.eventmaster.ui.events
 
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
-import android.view.WindowManager
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.Toast
-import androidx.annotation.RequiresApi
-import com.example.eventmaster.LoginActivity
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.example.eventmaster.MainActivity
 import com.example.eventmaster.R
 import com.example.eventmaster.models.Event
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.lang.StringBuilder
-import java.time.LocalDate
-import java.time.LocalDateTime
+import java.lang.Integer.parseInt
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AddEventActivity : AppCompatActivity() {
@@ -40,6 +32,15 @@ class AddEventActivity : AppCompatActivity() {
         buttonCancel.setOnClickListener{
             updateUI()
         }
+
+        val isPaidComponent = findViewById<CheckBox>(R.id.checkBoxAddEventPaid)
+        val priceComponent = findViewById<EditText>(R.id.editDecimalAddEventPrice)
+        val priceComponentLabel = findViewById<TextView>(R.id.textViewAddEventPrice)
+
+        isPaidComponent.setOnClickListener{
+            priceComponent.isEnabled = isPaidComponent.isChecked
+            priceComponentLabel.isEnabled = isPaidComponent.isChecked
+        }
     }
 
     override fun onBackPressed() {
@@ -52,30 +53,47 @@ class AddEventActivity : AppCompatActivity() {
         val dateComponent = findViewById<EditText>(R.id.editTextAddEventDate)
         val locationComponent = findViewById<EditText>(R.id.editTextAddEventPlace)
         val participantNumberComponent = findViewById<EditText>(R.id.editNumberAddEventAmount)
-        val isPrivateComponent = findViewById<CheckBox>(R.id.checkBoxAddEventPrivate)
         val isPaidComponent = findViewById<CheckBox>(R.id.checkBoxAddEventPaid)
         val priceComponent = findViewById<EditText>(R.id.editDecimalAddEventPrice)
 
-        if (
-            nameComponent.text.isNullOrEmpty() ||
-            descriptionComponent.text.isNullOrEmpty() ||
-            locationComponent.text.isNullOrEmpty() ||
-            participantNumberComponent.text.isNullOrEmpty()
-        ) {
-            Toast.makeText(this, "Puste pola - nie można dodać wydarzenia", Toast.LENGTH_SHORT).show()
-            return
+        // Validation
+        var isBlocked = false
+        if (nameComponent.text.isNullOrEmpty()) {
+            nameComponent.error = "Pusta nazwa"
+            isBlocked = true
         }
 
+        if (descriptionComponent.text.isNullOrEmpty()) {
+            descriptionComponent.error = "Pusty opis"
+            isBlocked = true
+        }
+        if (locationComponent.text.isNullOrEmpty()) {
+            locationComponent.error = "Pusta lokalizacja"
+            isBlocked = true
+        }
+        if (participantNumberComponent.text.isNullOrEmpty() || parseInt(participantNumberComponent.text.toString()) <= 0) {
+            participantNumberComponent.error = "Zła ilość uczestników"
+            isBlocked = true
+        }
+
+         try {
+             SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US).parse(dateComponent.text.toString())
+         } catch (exception : ParseException) {
+             dateComponent.error = "Zły format daty"
+             isBlocked = true
+         }
+
+        if (isBlocked)
+            return
 
         val event = Event(
-            nameComponent.text.toString(),
-            descriptionComponent.text.toString(),
-            null,//LocalDateTime.parse(dateComponent.text.toString()),
-            locationComponent.text.toString(),
-            participantNumberComponent.text.toString().toInt(),
-            isPrivateComponent.isChecked,
-            isPaidComponent.isChecked,
-            null
+                nameComponent.text.toString(),
+                descriptionComponent.text.toString(),
+                dateComponent.text.toString(),
+                locationComponent.text.toString(),
+                participantNumberComponent.text.toString().toInt(),
+                isPaidComponent.isChecked,
+                null
         )
 
         val eventsRef = database.getReference("/Events");
@@ -85,7 +103,6 @@ class AddEventActivity : AppCompatActivity() {
                 Toast.makeText(this, "Dodano do bazy", Toast.LENGTH_SHORT).show()
             }
         }
-        //eventsRef.setValue(event)
         updateUI()
     }
 

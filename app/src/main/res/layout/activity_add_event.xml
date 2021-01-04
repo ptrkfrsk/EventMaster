@@ -103,29 +103,18 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextAddEventPlace" />
 
     <CheckBox
-        android:id="@+id/checkBoxAddEventPrivate"
-        android:layout_width="185dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="16dp"
-        android:text="Prywatne"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.676"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editNumberAddEventAmount" />
-
-    <CheckBox
         android:id="@+id/checkBoxAddEventPaid"
         android:layout_width="185dp"
         android:layout_height="40dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         android:text="Płatne"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.676"
+        app:layout_constraintHorizontal_bias="0.699"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxAddEventPrivate" />
+        app:layout_constraintTop_toBottomOf="@+id/editNumberAddEventAmount" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/textViewAddEventPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -139,6 +128,7 @@
         android:id="@+id/editDecimalAddEventPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:enabled="false"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
         android:ems="10"
@@ -150,8 +140,8 @@
         android:id="@+id/buttonAddEventAdd"
         android:layout_width="104dp"
         android:layout_height="49dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="88dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="84dp"
         android:text="Dodaj"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editDecimalAddEventPrice" />
@@ -160,7 +150,7 @@
         android:id="@+id/buttonAddEventCancel"
         android:layout_width="106dp"
         android:layout_height="49dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="Anuluj"
         app:layout_constraintEnd_toStartOf="@+id/buttonAddEventAdd"
         app:layout_constraintHorizontal_bias="0.92"
@@ -184,6 +174,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="44dp"
         android:ems="10"
+        android:hint="2021-01-01 12:34"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextAddEventName" />
 </androidx.constraintlayout.widget.ConstraintLayout>
