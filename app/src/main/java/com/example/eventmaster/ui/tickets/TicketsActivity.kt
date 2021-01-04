@@ -35,7 +35,7 @@ class TicketsActivity : AppCompatActivity() {
 
         val buttonBack = findViewById<Button>(R.id.buttonMyTicketsBack)
         buttonBack.setOnClickListener{
-            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
         loadTicketsData()
@@ -89,9 +89,5 @@ class TicketsActivity : AppCompatActivity() {
         val intent = Intent(this, SingleTicketActivity::class.java)
         intent.putExtra("ticket", ticket as Serializable)
         startActivity(intent)
-    }
-
-    override fun onBackPressed() {
-        startActivity(Intent(this, MainActivity::class.java))
     }
 }

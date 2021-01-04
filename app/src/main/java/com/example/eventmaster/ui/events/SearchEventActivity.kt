@@ -35,7 +35,7 @@ class SearchEventActivity : AppCompatActivity() {
 
         val buttonBack = findViewById<Button>(R.id.buttonSearchEventsBack)
         buttonBack.setOnClickListener{
-            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
         loadEventsData()
@@ -99,9 +99,5 @@ class SearchEventActivity : AppCompatActivity() {
         intent.putExtra("eventId",  eventId)
 
         startActivity(intent)
-    }
-
-    override fun onBackPressed() {
-        startActivity(Intent(this, MainActivity::class.java))
     }
 }

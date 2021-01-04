@@ -30,7 +30,7 @@ class AddEventActivity : AppCompatActivity() {
 
         val buttonCancel = findViewById<Button>(R.id.buttonAddEventCancel);
         buttonCancel.setOnClickListener{
-            updateUI()
+            finish()
         }
 
         val isPaidComponent = findViewById<CheckBox>(R.id.checkBoxAddEventPaid)
@@ -101,12 +101,8 @@ class AddEventActivity : AppCompatActivity() {
         if (key != null) {
             eventsRef.child(key).setValue(event).addOnCompleteListener{
                 Toast.makeText(this, "Dodano do bazy", Toast.LENGTH_SHORT).show()
+                finish()
             }
         }
-        updateUI()
-    }
-
-    private fun updateUI() {
-        startActivity(Intent(this, MainActivity::class.java))
     }
 }

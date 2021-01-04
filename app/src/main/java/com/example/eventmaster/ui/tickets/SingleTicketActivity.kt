@@ -86,8 +86,4 @@ class SingleTicketActivity : AppCompatActivity() {
         }
         ref.addListenerForSingleValueEvent(listener)
     }
-
-    override fun onBackPressed() {
-        startActivity(Intent(this, TicketsActivity::class.java))
-    }
 }

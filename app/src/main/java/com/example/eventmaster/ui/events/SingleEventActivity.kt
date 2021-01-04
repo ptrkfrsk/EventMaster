@@ -44,7 +44,7 @@ class SingleEventActivity : AppCompatActivity() {
 
         val buttonCancel = findViewById<Button>(R.id.buttonSingleEventCancel)
         buttonCancel.setOnClickListener{
-            startActivity(Intent(this, SearchEventActivity::class.java))
+            finish()
         }
 
         val buttonJoin = findViewById<Button>(R.id.buttonSingleEventJoin)
@@ -65,9 +65,5 @@ class SingleEventActivity : AppCompatActivity() {
                 startActivity(Intent(this, TicketsActivity::class.java))
             }
         }
-    }
-
-    override fun onBackPressed() {
-        startActivity(Intent(this, SearchEventActivity::class.java))
     }
 }

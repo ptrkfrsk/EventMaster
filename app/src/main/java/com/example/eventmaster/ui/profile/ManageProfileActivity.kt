@@ -27,12 +27,12 @@ class ManageProfileActivity : AppCompatActivity() {
 
         val buttonSave= findViewById<Button>(R.id.buttonManageProfileSave)
         buttonSave.setOnClickListener{
-            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
         val buttonCancel= findViewById<Button>(R.id.buttonManageProfileCancel)
         buttonCancel.setOnClickListener{
-            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 
@@ -77,9 +77,5 @@ class ManageProfileActivity : AppCompatActivity() {
             }
         }
         ref.addListenerForSingleValueEvent(listener)
-    }
-
-    override fun onBackPressed() {
-        startActivity(Intent(this, MainActivity::class.java))
     }
 }

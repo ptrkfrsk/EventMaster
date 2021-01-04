@@ -1,5 +1,6 @@
 package com.example.eventmaster
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Window
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -28,5 +29,9 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+    
+    override fun onBackPressed() {
+        // nothing
     }
 }

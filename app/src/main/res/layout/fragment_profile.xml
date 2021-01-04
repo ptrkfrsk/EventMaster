@@ -12,12 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_row="0"
         android:layout_column="1"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="56dp"
         android:text="Wyloguj"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView9922" />
 
     <Button
         android:id="@+id/buttonManageProfile"
@@ -28,4 +28,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonLogout" />
+
+    <TextView
+        android:id="@+id/textView9922"
+        android:layout_width="149dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
+        android:text="PROFIL"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/textView2123"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2123"
+        android:layout_width="31dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="48dp"
+        android:background="@color/colorProfile"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
