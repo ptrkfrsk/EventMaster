@@ -1,20 +1,22 @@
 package com.example.eventmaster.ui.events
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import com.example.eventmaster.MainActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.example.eventmaster.R
 import com.example.eventmaster.models.Event
 import com.example.eventmaster.models.Ticket
 import com.example.eventmaster.ui.tickets.TicketsActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.time.LocalDateTime
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class SingleEventActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -49,21 +51,46 @@ class SingleEventActivity : AppCompatActivity() {
 
         val buttonJoin = findViewById<Button>(R.id.buttonSingleEventJoin)
         buttonJoin.setOnClickListener{
-            createTicketAndJoin(extrasID as String, auth.currentUser?.email as String)
+            val amount = 1
+            createTicketAndJoin(extrasID as String, extrasEvent, auth.currentUser?.email as String, amount)
         }
     }
 
-    private fun createTicketAndJoin(eventId : String, clientEmail : String) {
+    private fun createTicketAndJoin(eventId: String, event: Event, clientEmail: String, amount : Int) {
         if (eventId.isEmpty() || clientEmail.isEmpty())
             return
         val ticketsRef = database.getReference("/Tickets")
         val ticket = Ticket(eventId, clientEmail)
-        val key = ticketsRef.push().key
-        if (key != null) {
-            ticketsRef.child(key).setValue(ticket).addOnCompleteListener{
-                Toast.makeText(this, "Dołączono do wydarzenia!", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, TicketsActivity::class.java))
+        val createdKey = generateTicketKey(event.date, event.name)
+        for (i in 0..amount-1) { // for more than one buy
+            var key = ticketsRef.push().key
+            if (key != null) {
+                key = "$createdKey$key"
+                ticketsRef.child(key).setValue(ticket).addOnCompleteListener {
+                    Toast.makeText(this, "Dołączono do wydarzenia!", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, TicketsActivity::class.java))
+                }
             }
         }
+    }
+
+    private fun generateTicketKey(dateTimeString: String, name: String) : String? {
+        val key = StringBuilder()
+        for (i in dateTimeString.indices) {
+            if (dateTimeString[i] == ':' || dateTimeString[i] == '-')
+                key.append("")
+            else if (dateTimeString[i] == ' ')
+                key.append('_')
+            else
+                key.append(dateTimeString[i])
+        }
+        key.append('_')
+
+        for (i in name.indices) {
+            if (name[i].isUpperCase()) {
+                key.append(name[i])
+            }
+        }
+        return key.toString()
     }
 }

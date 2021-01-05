@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.io.Serializable
 import java.lang.Boolean
+import java.lang.StringBuilder
 
 class TicketsActivity : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
@@ -36,6 +37,7 @@ class TicketsActivity : AppCompatActivity() {
         val buttonBack = findViewById<Button>(R.id.buttonMyTicketsBack)
         buttonBack.setOnClickListener{
             finish()
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
         loadTicketsData()
@@ -64,8 +66,15 @@ class TicketsActivity : AppCompatActivity() {
                         val singleTicketLayout = LinearLayout(context)
                         singleTicketLayout.setPadding(0, 30, 0, 30)
                         singleTicketLayout.tag = counter
+                        singleTicketLayout.orientation = LinearLayout.VERTICAL
                         val textViewSingleTicket = TextView(context)
-                        textViewSingleTicket.text = ticketId
+                        val id2Show = StringBuilder()
+                        for (i in ticketId!!.indices) {
+                            if (ticketId[i] == '-')
+                                break
+                            id2Show.append(ticketId[i])
+                        }
+                        textViewSingleTicket.text = id2Show
                         textViewSingleTicket.textSize = 20f
                         textViewSingleTicket.textAlignment = View.TEXT_ALIGNMENT_CENTER
                         singleTicketLayout.addView(textViewSingleTicket)
@@ -73,8 +82,8 @@ class TicketsActivity : AppCompatActivity() {
                             passTicketObject(ticketList[singleTicketLayout.tag as Int])
                         }
                         scrollLayout.addView(singleTicketLayout)
+                        counter++
                     }
-                    counter++
                 }
             }
 
@@ -89,5 +98,10 @@ class TicketsActivity : AppCompatActivity() {
         val intent = Intent(this, SingleTicketActivity::class.java)
         intent.putExtra("ticket", ticket as Serializable)
         startActivity(intent)
+    }
+
+    override fun onBackPressed() {
+        finish()
+        startActivity(Intent(this, MainActivity::class.java))
     }
 }

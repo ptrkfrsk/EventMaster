@@ -49,7 +49,6 @@ class SingleTicketActivity : AppCompatActivity() {
 
     private fun loadProperEvent(id : String, intent: Intent) {
         val ref = database.getReference("/Events")
-        var returnObject : Event? = null
         val listener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 dataSnapshot.children.forEach {
@@ -75,7 +74,6 @@ class SingleTicketActivity : AppCompatActivity() {
                         }
 
                         textViewEventName.text = event.name
-                        return@forEach
                     }
                 }
             }

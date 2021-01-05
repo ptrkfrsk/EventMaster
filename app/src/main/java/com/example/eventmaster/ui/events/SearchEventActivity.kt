@@ -50,8 +50,6 @@ class SearchEventActivity : AppCompatActivity() {
 
         val listener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var person: Person? = null
-                //var event : Event? = null
                 var counter = 0
                 dataSnapshot.children.forEach {
                     val eventObj = it.value as HashMap<*, *>
@@ -67,11 +65,17 @@ class SearchEventActivity : AppCompatActivity() {
                     )
                     eventList.add(event)
                     val singleEventLayout = LinearLayout(context)
-                    singleEventLayout.setPadding(0,30,0,30)
+                    singleEventLayout.setPadding(0,30,0,50)
                     singleEventLayout.tag = counter
-                    val textViewSingleEvent = TextView(context)
-                    textViewSingleEvent.text = eventObj["name"].toString()
-                    textViewSingleEvent.textSize = 20f
+                    singleEventLayout.orientation = LinearLayout.VERTICAL
+                    var textViewSingleEvent = TextView(context)
+                    textViewSingleEvent.text = event.name
+                    textViewSingleEvent.textSize = 23f
+                    textViewSingleEvent.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                    singleEventLayout.addView(textViewSingleEvent)
+                    textViewSingleEvent = TextView(context)
+                    textViewSingleEvent.text = event.date
+                    textViewSingleEvent.textSize = 18f
                     textViewSingleEvent.textAlignment = View.TEXT_ALIGNMENT_CENTER
                     singleEventLayout.addView(textViewSingleEvent)
                     singleEventLayout.setOnClickListener{
