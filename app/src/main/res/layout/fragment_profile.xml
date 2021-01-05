@@ -8,7 +8,7 @@
 
     <Button
         android:id="@+id/buttonLogout"
-        android:layout_width="138dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_row="0"
         android:layout_column="1"
@@ -21,8 +21,8 @@
 
     <Button
         android:id="@+id/buttonManageProfile"
-        android:layout_width="133dp"
-        android:layout_height="47dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Zarządzaj"
         app:layout_constraintEnd_toEndOf="parent"

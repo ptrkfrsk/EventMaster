@@ -10,16 +10,16 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
         android:text="Wydarzenia"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView1523"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:layout_width="371dp"
-        android:layout_height="542dp"
+        android:layout_width="369dp"
+        android:layout_height="519dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,11 +34,23 @@
 
     <Button
         android:id="@+id/buttonSearchEventsBack"
-        android:layout_width="119dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="36dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:text="Powrót"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView1523"
+        android:layout_width="31dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/colorEvents"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

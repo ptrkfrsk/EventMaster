@@ -28,8 +28,8 @@
 
     <Button
         android:id="@+id/buttonSingleTicketGoToEvent"
-        android:layout_width="225dp"
-        android:layout_height="90dp"
+        android:layout_width="160dp"
+        android:layout_height="62dp"
         android:layout_marginBottom="28dp"
         android:text="Przejdź do wydarzenia"
         app:layout_constraintBottom_toTopOf="@+id/buttonSingleTicketCancel"
@@ -38,12 +38,13 @@
 
     <Button
         android:id="@+id/buttonSingleTicketCancel"
-        android:layout_width="125dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="56dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:text="Powrót"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

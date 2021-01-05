@@ -10,11 +10,11 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
         android:text="Dodaj wydarzenie"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView215623"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:text="Nazwa:"
         app:layout_constraintEnd_toStartOf="@+id/editTextAddEventName"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginEnd="40dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,8 +42,8 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="12dp"
         android:text="Opis:"
         app:layout_constraintEnd_toStartOf="@+id/editMultilineAddEventDescription"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="16dp"
         android:text="Miejsce:"
         app:layout_constraintEnd_toStartOf="@+id/editTextAddEventPlace"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -75,7 +75,7 @@
         android:layout_width="209dp"
         android:layout_height="43dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginEnd="40dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="16dp"
         android:text="Ilość uczestników:"
         app:layout_constraintEnd_toStartOf="@+id/editNumberAddEventAmount"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -95,8 +95,8 @@
         android:id="@+id/editNumberAddEventAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="40dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
@@ -117,51 +117,50 @@
         android:id="@+id/textViewAddEventPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="16dp"
+        android:enabled="false"
         android:text="Cena:"
         app:layout_constraintEnd_toStartOf="@+id/editDecimalAddEventPrice"
-        android:enabled="false"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxAddEventPaid" />
 
     <EditText
         android:id="@+id/editDecimalAddEventPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:enabled="false"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="40dp"
         android:ems="10"
+        android:enabled="false"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxAddEventPaid" />
 
     <Button
         android:id="@+id/buttonAddEventAdd"
-        android:layout_width="104dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="84dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
         android:text="Dodaj"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editDecimalAddEventPrice" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/buttonAddEventCancel"
-        android:layout_width="106dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="40dp"
         android:text="Anuluj"
-        app:layout_constraintEnd_toStartOf="@+id/buttonAddEventAdd"
-        app:layout_constraintHorizontal_bias="0.92"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editDecimalAddEventPrice" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="12dp"
         android:text="Data:"
         app:layout_constraintEnd_toStartOf="@+id/editTextAddEventDate"
@@ -172,9 +171,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginEnd="40dp"
         android:ems="10"
         android:hint="2021-01-01 12:34"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextAddEventName" />
+
+    <TextView
+        android:id="@+id/textView215623"
+        android:layout_width="31dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/colorEvents"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

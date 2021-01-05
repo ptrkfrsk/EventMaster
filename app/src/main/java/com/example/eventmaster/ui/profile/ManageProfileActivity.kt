@@ -45,7 +45,6 @@ class ManageProfileActivity : AppCompatActivity() {
         val addressComponent = findViewById<EditText>(R.id.editTextManageProfileAddress)
         val accountComponent = findViewById<EditText>(R.id.editTextManageProfileAccount)
         val emailComponent = findViewById<EditText>(R.id.editTextManageProfileEmail)
-        val passwordComponent = findViewById<EditText>(R.id.editTextManageProfilePassword)
         val listener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var person : Person? = null

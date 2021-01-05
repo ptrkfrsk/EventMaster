@@ -10,11 +10,11 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:text="Mój Profil"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView21523"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -32,7 +32,7 @@
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="20dp"
         android:text="Numer konta"
         app:layout_constraintEnd_toStartOf="@+id/editTextManageProfileAccount"
@@ -42,7 +42,7 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:text="Telefon"
         app:layout_constraintEnd_toStartOf="@+id/editTextManageProfilePhone"
@@ -52,7 +52,7 @@
         android:id="@+id/editTextManageProfilePhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="40dp"
         android:ems="10"
         android:inputType="phone"
@@ -74,7 +74,7 @@
         android:id="@+id/editTextManageProfileAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="40dp"
         android:ems="10"
         android:inputType="number"
@@ -83,13 +83,13 @@
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="32dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
         android:text="Imię"
         app:layout_constraintEnd_toStartOf="@+id/editTextManageProfileName"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <TextView
         android:id="@+id/textView13"
@@ -105,7 +105,7 @@
         android:id="@+id/editTextManageProfileAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="40dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -116,7 +116,7 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:text="Nazwisko"
         app:layout_constraintEnd_toStartOf="@+id/editTextManageProfileSurname"
@@ -124,20 +124,20 @@
 
     <Button
         android:id="@+id/buttonManageProfileCancel"
-        android:layout_width="110dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginBottom="28dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="40dp"
         android:text="Anuluj"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonManageProfileSave"
-        android:layout_width="124dp"
-        android:layout_height="49dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="28dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="40dp"
         android:text="Zapisz"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -154,18 +154,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextManageProfileAccount" />
 
-    <EditText
-        android:id="@+id/editTextManageProfilePassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="40dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextManageProfileEmail" />
-
     <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
@@ -176,16 +164,6 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="16dp"
-        android:text="Hasło"
-        app:layout_constraintEnd_toStartOf="@+id/editTextManageProfilePassword"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <TextView
         android:id="@+id/textView15"
@@ -207,5 +185,16 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView21523"
+        android:layout_width="31dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/colorProfile"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

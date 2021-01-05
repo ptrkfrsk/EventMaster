@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/buttonSearchEvent"
-        android:layout_width="164dp"
-        android:layout_height="46dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:text="Wyszukaj"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,8 +19,8 @@
 
     <Button
         android:id="@+id/buttonAddEvent"
-        android:layout_width="167dp"
-        android:layout_height="47dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Dodaj"
         app:layout_constraintEnd_toEndOf="parent"

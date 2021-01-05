@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/textViewSingleEventName"
         android:layout_width="284dp"
-        android:layout_height="166dp"
+        android:layout_height="73dp"
         android:layout_marginTop="44dp"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,20 +18,20 @@
 
     <Button
         android:id="@+id/buttonSingleEventCancel"
-        android:layout_width="129dp"
-        android:layout_height="51dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="40dp"
         android:text="Anuluj"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonSingleEventJoin"
-        android:layout_width="134dp"
-        android:layout_height="51dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="40dp"
         android:text="Dołącz"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
