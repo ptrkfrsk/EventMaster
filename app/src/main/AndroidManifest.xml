@@ -12,17 +12,19 @@
         <activity
             android:name=".ui.tickets.SingleTicketActivity"
             android:label="@string/title_activity_single_ticket"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".ui.events.SingleEventActivity" />
-        <activity android:name=".ui.tickets.TicketsActivity" />
-        <activity android:name=".ui.profile.ManageProfileActivity" />
-        <activity android:name=".ui.events.SearchEventActivity" />
-        <activity android:name=".ui.events.AddEventActivity" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.events.SingleEventActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.tickets.TicketsActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.profile.ManageProfileActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.events.SearchEventActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.events.AddEventActivity" android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main2" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".LoginActivity">
+            android:label="@string/title_activity_main2"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SignUpActivity" android:screenOrientation="portrait" />
+        <activity android:name=".LoginActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
 
