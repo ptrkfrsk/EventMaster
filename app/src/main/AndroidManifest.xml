@@ -9,22 +9,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.events.PaymentActivity" android:screenOrientation="portrait" />
         <activity
             android:name=".ui.tickets.SingleTicketActivity"
             android:label="@string/title_activity_single_ticket"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.events.SingleEventActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.tickets.TicketsActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.profile.ManageProfileActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.events.SearchEventActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.events.AddEventActivity" android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.events.SingleEventActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.tickets.TicketsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.profile.ManageProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.events.SearchEventActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.events.AddEventActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main2"
             android:screenOrientation="portrait" />
-        <activity android:name=".SignUpActivity" android:screenOrientation="portrait" />
-        <activity android:name=".LoginActivity" android:screenOrientation="portrait">
+        <activity
+            android:name=".SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
 

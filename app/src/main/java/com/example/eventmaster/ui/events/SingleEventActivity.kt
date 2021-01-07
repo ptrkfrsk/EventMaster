@@ -59,19 +59,27 @@ class SingleEventActivity : AppCompatActivity() {
     private fun createTicketAndJoin(eventId: String, event: Event, clientEmail: String, amount : Int) {
         if (eventId.isEmpty() || clientEmail.isEmpty())
             return
-        val ticketsRef = database.getReference("/Tickets")
-        val ticket = Ticket(eventId, clientEmail)
-        val createdKey = generateTicketKey(event.date, event.name)
-        for (i in 0..amount-1) { // for more than one buy
-            var key = ticketsRef.push().key
-            if (key != null) {
-                key = "$createdKey$key"
-                ticketsRef.child(key).setValue(ticket).addOnCompleteListener {
-                    Toast.makeText(this, "Dołączono do wydarzenia!", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, TicketsActivity::class.java))
-                }
-            }
-        }
+        val intent = Intent(this, PaymentActivity::class.java)
+        val price = 23 * 100
+        val ticketId = "qwerty"
+        val text = "Testowy%20opis"
+        val redirect = "https%3A%2F%2Fwww.paylike.io"
+        val url = "https://pos.paylike.io/?key=9a2e2ab4-05a9-4f19-9b3b-b32351b7b02e&currency=PLN&amount=$price&reference=$ticketId&text=$text&redirect=$redirect"
+        intent.putExtra("url", url)
+//        val ticketsRef = database.getReference("/Tickets")
+//        val ticket = Ticket(eventId, clientEmail)
+//        val createdKey = generateTicketKey(event.date, event.name)
+//        for (i in 0..amount-1) { // for more than one buy
+//            var key = ticketsRef.push().key
+//            if (key != null) {
+//                key = "$createdKey$key"
+//                ticketsRef.child(key).setValue(ticket).addOnCompleteListener {
+//                    Toast.makeText(this, "Dołączono do wydarzenia!", Toast.LENGTH_SHORT).show()
+//                    startActivity(Intent(this, PaymentActivity::class.java))
+//                }
+//            }
+//        }
+        startActivity(intent)
     }
 
     private fun generateTicketKey(dateTimeString: String, name: String) : String? {
