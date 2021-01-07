@@ -61,7 +61,7 @@ class SearchEventActivity : AppCompatActivity() {
                         location = eventObj["location"].toString(),
                         participantNumber =  parseInt(eventObj["participantNumber"].toString()),
                         paid = parseBoolean(eventObj["paid"].toString()),
-                        price = null
+                        price = eventObj["price"].toString().toDoubleOrNull(),
                     )
                     eventList.add(event)
                     val singleEventLayout = LinearLayout(context)

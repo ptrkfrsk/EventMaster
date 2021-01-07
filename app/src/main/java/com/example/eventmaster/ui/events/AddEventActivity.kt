@@ -57,6 +57,7 @@ class AddEventActivity : AppCompatActivity() {
         val priceComponent = findViewById<EditText>(R.id.editDecimalAddEventPrice)
 
         // Validation
+        var eventPrice : Double? = null
         var isBlocked = false
         if (nameComponent.text.isNullOrEmpty()) {
             nameComponent.error = "Pusta nazwa"
@@ -75,6 +76,14 @@ class AddEventActivity : AppCompatActivity() {
             participantNumberComponent.error = "Zła ilość uczestników"
             isBlocked = true
         }
+        if (isPaidComponent.isChecked) {
+            if (priceComponent.text.isNullOrEmpty()) {
+                priceComponent.error = "Podaj cenę biletu"
+                isBlocked = true
+            } else {
+                eventPrice = priceComponent.text.toString().toDouble()
+            }
+        }
 
          try {
              SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US).parse(dateComponent.text.toString())
@@ -86,6 +95,7 @@ class AddEventActivity : AppCompatActivity() {
         if (isBlocked)
             return
 
+
         val event = Event(
                 nameComponent.text.toString(),
                 descriptionComponent.text.toString(),
@@ -93,7 +103,7 @@ class AddEventActivity : AppCompatActivity() {
                 locationComponent.text.toString(),
                 participantNumberComponent.text.toString().toInt(),
                 isPaidComponent.isChecked,
-                null
+                eventPrice
         )
 
         val eventsRef = database.getReference("/Events");

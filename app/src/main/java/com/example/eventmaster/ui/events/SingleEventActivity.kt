@@ -15,6 +15,7 @@ import com.example.eventmaster.ui.tickets.TicketsActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.io.Serializable
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -53,43 +54,69 @@ class SingleEventActivity : AppCompatActivity() {
         val buttonJoin = findViewById<Button>(R.id.buttonSingleEventJoin)
         buttonJoin.setOnClickListener{
             val amount = 1
-            createTicketAndJoin(extrasID as String, extrasEvent, auth.currentUser?.email as String, amount)
+            joinEvent(extrasID as String, extrasEvent, amount)
         }
     }
 
-    private fun createTicketAndJoin(eventId: String, event: Event, clientEmail: String, amount : Int) {
-        if (eventId.isEmpty() || clientEmail.isEmpty())
+    override fun onActivityResult(requestCode : Int, resultCode: Int, data : Intent?) {
+        // Success == 11
+        // Failure == 7
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == requestCode && data != null)
+            createTicket(data.extras?.get("eventId") as String, data.extras?.get("event") as Event, data.extras?.get("amount") as Int)
+        else
+            Toast.makeText(this, "Anulowano transakcję", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun joinEvent(eventId: String, event: Event, amount : Int) {
+        if (eventId.isEmpty())
             return
+        if (!event.paid) {
+            createTicket(eventId, event, amount)
+            return
+        }
+
+        // Paylike.io link parameters
+        if (event.price == null) {
+            Toast.makeText(this, "Coś poszło nie tak: błąd ceny biletu", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val price = event.price * 100 * amount // price
+        val text = StringBuilder() // visible text
+        for (i in event.name.indices) {
+            if (event.name[i] == ' ')
+                text.append("%20")
+            else
+                text.append(event.name[i])
+        }
+        val redirect = "https%3A%2F%2Fwww.paylike.io" // whatever
+        val url = "https://pos.paylike.io/?key=9a2e2ab4-05a9-4f19-9b3b-b32351b7b02e&currency=PLN&amount=$price&reference=$eventId&text=$text&redirect=$redirect"
         val intent = Intent(this, PaymentActivity::class.java)
-        val price = 23 * 100
-        val ticketId = "qwerty"
-        val text = "Testowy%20opis"
-        val redirect = "https%3A%2F%2Fwww.paylike.io"
-        val url = "https://pos.paylike.io/?key=9a2e2ab4-05a9-4f19-9b3b-b32351b7b02e&currency=PLN&amount=$price&reference=$ticketId&text=$text&redirect=$redirect"
         intent.putExtra("url", url)
-//        val ticketsRef = database.getReference("/Tickets")
-//        val ticket = Ticket(eventId, clientEmail)
-//        val createdKey = generateTicketKey(event.date, event.name)
-//        for (i in 0..amount-1) { // for more than one buy
-//            var key = ticketsRef.push().key
-//            if (key != null) {
-//                key = "$createdKey$key"
-//                ticketsRef.child(key).setValue(ticket).addOnCompleteListener {
-//                    Toast.makeText(this, "Dołączono do wydarzenia!", Toast.LENGTH_SHORT).show()
-//                    startActivity(Intent(this, PaymentActivity::class.java))
-//                }
-//            }
-//        }
+        intent.putExtra("amount", amount)
+        intent.putExtra("eventId", eventId)
+        intent.putExtra("event", event as Serializable)
+
         startActivityForResult(intent, 11)
 
     }
 
-    override fun onActivityResult(requestCode : Int, resultCode: Int, data : Intent?) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == requestCode)
-            Toast.makeText(this, "Brawo!", Toast.LENGTH_SHORT).show()
-        else
-            Toast.makeText(this, "Nie!", Toast.LENGTH_SHORT).show()
+    private fun createTicket(eventId : String, event : Event, amount : Int) {
+        val ticketsRef = database.getReference("/Tickets")
+        val ticket = Ticket(eventId, auth.currentUser?.email!!)
+        val createdKey = generateTicketKey(event.date, event.name)
+        for (i in 0 until amount) { // for more than one buy
+            var key = ticketsRef.push().key
+            if (key != null) {
+                key = "$createdKey$key"
+                ticketsRef.child(key).setValue(ticket).addOnCompleteListener {
+                    Toast.makeText(this, "Dołączono do wydarzenia!", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, TicketsActivity::class.java))
+                    finish()
+                }
+            }
+        }
     }
 
     private fun generateTicketKey(dateTimeString: String, name: String) : String? {
