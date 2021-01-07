@@ -1,5 +1,6 @@
 package com.example.eventmaster.ui.events
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Window
@@ -79,7 +80,16 @@ class SingleEventActivity : AppCompatActivity() {
 //                }
 //            }
 //        }
-        startActivity(intent)
+        startActivityForResult(intent, 11)
+
+    }
+
+    override fun onActivityResult(requestCode : Int, resultCode: Int, data : Intent?) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == requestCode)
+            Toast.makeText(this, "Brawo!", Toast.LENGTH_SHORT).show()
+        else
+            Toast.makeText(this, "Nie!", Toast.LENGTH_SHORT).show()
     }
 
     private fun generateTicketKey(dateTimeString: String, name: String) : String? {

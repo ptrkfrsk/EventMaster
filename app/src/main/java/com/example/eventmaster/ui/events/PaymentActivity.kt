@@ -24,10 +24,16 @@ class PaymentActivity : AppCompatActivity() {
                 // do your handling codes here, which url is the requested url
                 // probably you need to open that url rather than redirect:
                 //view.loadUrl(url)
+                setResult(11)
                 finish()
                 return false // then it is not handled by default action
             }
         }
         webView.loadUrl(extrasUrl)
+    }
+
+    override fun onBackPressed() {
+        setResult(7)
+        super.onBackPressed()
     }
 }
