@@ -104,12 +104,12 @@
 
     <CheckBox
         android:id="@+id/checkBoxAddEventPaid"
-        android:layout_width="185dp"
-        android:layout_height="40dp"
+        android:layout_width="78dp"
+        android:layout_height="35dp"
         android:layout_marginTop="24dp"
+        android:checked="true"
         android:text="Płatne"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.699"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editNumberAddEventAmount" />
 

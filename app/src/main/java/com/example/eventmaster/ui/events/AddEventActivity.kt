@@ -1,10 +1,13 @@
 package com.example.eventmaster.ui.events
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.eventmaster.MainActivity
 import com.example.eventmaster.R
 import com.example.eventmaster.models.Event
@@ -40,6 +43,16 @@ class AddEventActivity : AppCompatActivity() {
         isPaidComponent.setOnClickListener{
             priceComponent.isEnabled = isPaidComponent.isChecked
             priceComponentLabel.isEnabled = isPaidComponent.isChecked
+
+            // Disabled/enabled styles
+            if (isPaidComponent.isChecked) {
+                priceComponentLabel.setTextColor(Color.parseColor("#000000"))
+                priceComponent.background =  ContextCompat.getDrawable(this, R.drawable.my_edit_bg)
+            } else {
+                priceComponentLabel.setTextColor(Color.parseColor("#aaaaaa"))
+                priceComponent.error = null
+                priceComponent.background =  ContextCompat.getDrawable(this, R.drawable.my_disabled_edit_bg)
+            }
         }
     }
 
