@@ -60,6 +60,7 @@ class SearchEventActivity : AppCompatActivity() {
                         date = eventObj["date"].toString(),
                         location = eventObj["location"].toString(),
                         participantNumber =  parseInt(eventObj["participantNumber"].toString()),
+                            takenPlaces = parseInt(eventObj["takenPlaces"].toString()),
                         paid = parseBoolean(eventObj["paid"].toString()),
                         price = eventObj["price"].toString().toDoubleOrNull(),
                     )

@@ -62,8 +62,9 @@ class SingleTicketActivity : AppCompatActivity() {
                                 date = eventObj["date"].toString(),
                                 location = eventObj["location"].toString(),
                                 participantNumber = Integer.parseInt(eventObj["participantNumber"].toString()),
+                                takenPlaces = Integer.parseInt(eventObj["takenPlaces"].toString()),
                                 paid = Boolean.parseBoolean(eventObj["paid"].toString()),
-                                price = null
+                                price = eventObj["price"].toString().toDoubleOrNull()
                         )
 
                         val buttonGoToEvent = findViewById<Button>(R.id.buttonSingleTicketGoToEvent)

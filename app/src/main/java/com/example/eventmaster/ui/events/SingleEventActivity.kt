@@ -44,6 +44,7 @@ class SingleEventActivity : AppCompatActivity() {
         showDateComponent.text = extrasEvent.date.toString()
         val showLocationComponent = findViewById<TextView>(R.id.textViewSingleEventLocation)
         showLocationComponent.text = extrasEvent.location
+        // taken places component
 
 
         val buttonCancel = findViewById<Button>(R.id.buttonSingleEventCancel)
@@ -54,7 +55,11 @@ class SingleEventActivity : AppCompatActivity() {
         val buttonJoin = findViewById<Button>(R.id.buttonSingleEventJoin)
         buttonJoin.setOnClickListener{
             val amount = 1
-            joinEvent(extrasID as String, extrasEvent, amount)
+            val available = checkEventAvailability(extrasEvent.participantNumber, extrasEvent.takenPlaces, amount)
+            if (!available)
+                Toast.makeText(this, "Niestety, ale pozostało miejsc mniej niż: $amount", Toast.LENGTH_SHORT).show()
+            else
+                joinEvent(extrasID as String, extrasEvent, amount)
         }
     }
 
@@ -67,6 +72,13 @@ class SingleEventActivity : AppCompatActivity() {
         else
             Toast.makeText(this, "Anulowano transakcję", Toast.LENGTH_SHORT).show()
     }
+
+    private fun checkEventAvailability(max : Int, current : Int, new : Int) : Boolean {
+        if (max - current - new >= 0)
+            return true
+        return false
+    }
+
 
     private fun joinEvent(eventId: String, event: Event, amount : Int) {
         if (eventId.isEmpty())
@@ -111,9 +123,12 @@ class SingleEventActivity : AppCompatActivity() {
             if (key != null) {
                 key = "$createdKey$key"
                 ticketsRef.child(key).setValue(ticket).addOnCompleteListener {
-                    Toast.makeText(this, "Dołączono do wydarzenia!", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, TicketsActivity::class.java))
-                    finish()
+                    val eventsRef = database.getReference("/Events")
+                    eventsRef.child(eventId).child("takenPlaces").setValue(event.takenPlaces + amount).addOnCompleteListener{
+                        Toast.makeText(this, "Dołączono do wydarzenia!", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, TicketsActivity::class.java))
+                        finish()
+                    }
                 }
             }
         }

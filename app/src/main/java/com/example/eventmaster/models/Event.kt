@@ -9,6 +9,7 @@ class Event(
         val date: String,
         val location: String,
         val participantNumber: Int,
+        val takenPlaces: Int,
         val paid: Boolean,
         val price: Double?) : Serializable {
 }

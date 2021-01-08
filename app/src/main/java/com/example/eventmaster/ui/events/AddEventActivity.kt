@@ -115,6 +115,7 @@ class AddEventActivity : AppCompatActivity() {
                 dateComponent.text.toString(),
                 locationComponent.text.toString(),
                 participantNumberComponent.text.toString().toInt(),
+                0,
                 isPaidComponent.isChecked,
                 eventPrice
         )
