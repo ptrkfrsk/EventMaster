@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.example.eventmaster.MainActivity
 import com.example.eventmaster.R
 import com.example.eventmaster.models.Person
@@ -17,17 +18,24 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class ManageProfileActivity : AppCompatActivity() {
+    private lateinit var auth : FirebaseAuth
+    private lateinit var database : FirebaseDatabase
+    private var userId : String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
         supportActionBar?.hide(); // hide the title bar
         setContentView(R.layout.activity_manage_profile)
 
+        database = FirebaseDatabase.getInstance()
+        auth = FirebaseAuth.getInstance()
+
         loadUserData()
 
         val buttonSave= findViewById<Button>(R.id.buttonManageProfileSave)
         buttonSave.setOnClickListener{
-            finish()
+            saveNewUserData()
         }
 
         val buttonCancel= findViewById<Button>(R.id.buttonManageProfileCancel)
@@ -37,8 +45,7 @@ class ManageProfileActivity : AppCompatActivity() {
     }
 
     private fun loadUserData() {
-        val auth = FirebaseAuth.getInstance()
-        val ref = FirebaseDatabase.getInstance().getReference("People")
+        val ref = database.getReference("/People")
         val nameComponent = findViewById<EditText>(R.id.editTextManageProfileName)
         val surnameComponent = findViewById<EditText>(R.id.editTextManageProfileSurname)
         val phoneComponent = findViewById<EditText>(R.id.editTextManageProfilePhone)
@@ -52,6 +59,7 @@ class ManageProfileActivity : AppCompatActivity() {
                 dataSnapshot.children.forEach{
                     val personObj = it.value as HashMap<*, *>
                     if (currentEmail.equals(personObj ["email"].toString())) {
+                        userId = it.key
                         person = Person(
                                 name = personObj ["name"].toString(),
                                 surname = personObj ["surname"].toString(),
@@ -77,4 +85,63 @@ class ManageProfileActivity : AppCompatActivity() {
         }
         ref.addListenerForSingleValueEvent(listener)
     }
+
+    private fun saveNewUserData() {
+        val nameComponent = findViewById<EditText>(R.id.editTextManageProfileName)
+        val surnameComponent = findViewById<EditText>(R.id.editTextManageProfileSurname)
+        val phoneComponent = findViewById<EditText>(R.id.editTextManageProfilePhone)
+        val addressComponent = findViewById<EditText>(R.id.editTextManageProfileAddress)
+        val accountComponent = findViewById<EditText>(R.id.editTextManageProfileAccount)
+
+        val name = nameComponent.text.toString()
+        val surname = surnameComponent.text.toString()
+        val phoneNumber = phoneComponent.text.toString()
+        val address = addressComponent.text.toString()
+        val accountNumber = accountComponent.text.toString()
+
+        var isBlocked = false
+        if (name.isEmpty()) {
+            nameComponent.error = "Podaj imię"
+            isBlocked = true
+        }
+        if (surname.isEmpty()) {
+            surnameComponent.error = "Podaj nazwisko"
+            isBlocked = true
+        }
+        if (phoneNumber.length != 9) {
+            phoneComponent.error = "Podaj poprawny numer telefonu (9 cyfr)"
+            isBlocked = true
+        }
+        if (address.isEmpty()) {
+            addressComponent.error = "Podaj adres zamieszkania"
+            isBlocked = true
+        }
+        if (accountNumber.length != 26) {
+            accountComponent.error = "Podaj prawidłowy numer konta (podano ${accountNumber.length} zamiast 26 cyfr)"
+            isBlocked = true
+        }
+
+        if (isBlocked)
+            return
+
+        val person = Person(
+                name,
+                surname,
+                phoneNumber,
+                address,
+                accountNumber,
+                auth.currentUser?.email!!
+        )
+
+        val peopleRef = database.getReference("/People")
+        val key = userId
+        if (key != null) {
+            peopleRef.child(key).setValue(person)
+            Toast.makeText(this, "Zaktualizowano dane profilu", Toast.LENGTH_SHORT).show()
+            finish()
+        } else {
+            Toast.makeText(this, "Błąd klucza identyfikacyjnego", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

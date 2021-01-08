@@ -1,6 +1,7 @@
 package com.example.eventmaster
 
 import android.content.Intent
+import android.graphics.Color.parseColor
 import android.os.Bundle
 import android.view.Window
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide(); // hide the title bar
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        //navView.itemBackground = null
 
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
