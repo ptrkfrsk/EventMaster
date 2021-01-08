@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Window
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.io.Serializable
+import java.lang.Integer.parseInt
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -45,7 +47,7 @@ class SingleEventActivity : AppCompatActivity() {
         val showLocationComponent = findViewById<TextView>(R.id.textViewSingleEventLocation)
         showLocationComponent.text = extrasEvent.location
         // taken places component
-
+        val ticketNumberComponent = findViewById<EditText>(R.id.editNumberSingleEventTicketNumber)
 
         val buttonCancel = findViewById<Button>(R.id.buttonSingleEventCancel)
         buttonCancel.setOnClickListener{
@@ -54,12 +56,21 @@ class SingleEventActivity : AppCompatActivity() {
 
         val buttonJoin = findViewById<Button>(R.id.buttonSingleEventJoin)
         buttonJoin.setOnClickListener{
-            val amount = 1
-            val available = checkEventAvailability(extrasEvent.participantNumber, extrasEvent.takenPlaces, amount)
-            if (!available)
-                Toast.makeText(this, "Niestety, ale pozostało miejsc mniej niż: $amount", Toast.LENGTH_SHORT).show()
-            else
-                joinEvent(extrasID as String, extrasEvent, amount)
+            var amount = 0
+            if (ticketNumberComponent.text.toString().length == 1) {
+                amount = parseInt(ticketNumberComponent.text.toString())
+                if (amount > 3 || amount < 1) {
+                    ticketNumberComponent.error = "Można kupić od 1 do 3 biletów"
+                } else {
+                    val available = checkEventAvailability(extrasEvent.participantNumber, extrasEvent.takenPlaces, amount)
+                    if (!available)
+                        Toast.makeText(this, "Niestety, ale pozostało miejsc mniej niż: $amount", Toast.LENGTH_SHORT).show()
+                    else
+                        joinEvent(extrasID as String, extrasEvent, amount)
+                }
+            } else {
+                ticketNumberComponent.error = "Można kupić od 1 do 3 biletów"
+            }
         }
     }
 
