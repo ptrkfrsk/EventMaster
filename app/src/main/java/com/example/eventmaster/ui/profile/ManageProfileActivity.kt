@@ -1,21 +1,24 @@
 package com.example.eventmaster.ui.profile
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.eventmaster.MainActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.example.eventmaster.R
+import com.example.eventmaster.checkOnlineConnection
 import com.example.eventmaster.models.Person
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+
 
 class ManageProfileActivity : AppCompatActivity() {
     private lateinit var auth : FirebaseAuth
@@ -27,6 +30,8 @@ class ManageProfileActivity : AppCompatActivity() {
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
         supportActionBar?.hide(); // hide the title bar
         setContentView(R.layout.activity_manage_profile)
+        if (!checkOnlineConnection(this))
+            Toast.makeText(this, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show()
 
         database = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
@@ -35,7 +40,10 @@ class ManageProfileActivity : AppCompatActivity() {
 
         val buttonSave= findViewById<Button>(R.id.buttonManageProfileSave)
         buttonSave.setOnClickListener{
-            saveNewUserData()
+            if (checkOnlineConnection(this))
+                saveNewUserData()
+            else
+                Toast.makeText(this, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show()
         }
 
         val buttonCancel= findViewById<Button>(R.id.buttonManageProfileCancel)
@@ -58,15 +66,15 @@ class ManageProfileActivity : AppCompatActivity() {
                 val currentEmail = auth.currentUser?.email
                 dataSnapshot.children.forEach{
                     val personObj = it.value as HashMap<*, *>
-                    if (currentEmail.equals(personObj ["email"].toString())) {
+                    if (currentEmail.equals(personObj["email"].toString())) {
                         userId = it.key
                         person = Person(
-                                name = personObj ["name"].toString(),
-                                surname = personObj ["surname"].toString(),
-                                phone = personObj ["phone"].toString(),
-                                address = personObj ["address"].toString(),
-                                account = personObj ["account"].toString(),
-                                email = personObj ["email"].toString()
+                                name = personObj["name"].toString(),
+                                surname = personObj["surname"].toString(),
+                                phone = personObj["phone"].toString(),
+                                address = personObj["address"].toString(),
+                                account = personObj["account"].toString(),
+                                email = personObj["email"].toString()
                         )
                         return@forEach
                     }
@@ -143,5 +151,4 @@ class ManageProfileActivity : AppCompatActivity() {
             Toast.makeText(this, "Błąd klucza identyfikacyjnego", Toast.LENGTH_SHORT).show()
         }
     }
-
 }

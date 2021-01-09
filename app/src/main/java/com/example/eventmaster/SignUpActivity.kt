@@ -29,10 +29,11 @@ class SignUpActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance();
 
         val buttonSuSignUp = findViewById<Button>(R.id.buttonSuSignUp)
-        buttonSuSignUp.setOnClickListener(){
-            val editTextSuEmail = findViewById<EditText>(R.id.editTextSuEmail)
-            val editTextSuPassword = findViewById<EditText>(R.id.editTextSuPassword)
-            checkDataAndCreateUser(database)
+        buttonSuSignUp.setOnClickListener{
+            if (checkOnlineConnection(this))
+                checkDataAndCreateUser(database)
+            else
+                Toast.makeText(this, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show()
         }
     }
 

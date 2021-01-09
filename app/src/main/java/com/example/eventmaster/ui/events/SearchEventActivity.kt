@@ -8,8 +8,10 @@ import android.view.Window
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import com.example.eventmaster.R
+import com.example.eventmaster.checkOnlineConnection
 import com.example.eventmaster.models.Event
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -26,6 +28,9 @@ class SearchEventActivity : AppCompatActivity() {
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
         supportActionBar?.hide(); // hide the title bar
         setContentView(R.layout.activity_search_event)
+
+        if (!checkOnlineConnection(this))
+            Toast.makeText(this, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show()
 
         database = FirebaseDatabase.getInstance()
 

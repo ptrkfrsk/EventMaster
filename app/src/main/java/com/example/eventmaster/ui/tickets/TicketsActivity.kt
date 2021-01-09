@@ -8,10 +8,11 @@ import android.view.Window
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.marginBottom
 import com.example.eventmaster.MainActivity
 import com.example.eventmaster.R
+import com.example.eventmaster.checkOnlineConnection
 import com.example.eventmaster.models.Event
 import com.example.eventmaster.models.Ticket
 import com.google.firebase.auth.FirebaseAuth
@@ -33,6 +34,9 @@ class TicketsActivity : AppCompatActivity() {
         supportActionBar?.hide(); // hide the title bar
         setContentView(R.layout.activity_tickets)
 
+        if (!checkOnlineConnection(this))
+            Toast.makeText(this, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show()
+
         database = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
 
@@ -48,20 +52,19 @@ class TicketsActivity : AppCompatActivity() {
     private fun loadTicketsData() {
         val ref = database.getReference("/Tickets")
         val scrollLayout = findViewById<LinearLayout>(R.id.layoutScrollMyTickets)
-        //val intent = Intent(this, TicketsActivity::class.java)
         val context = this
         val ticketList = arrayListOf<Ticket>()
         var counter = 0
 
         val listener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var counter = 0
+                var order = 0
                 dataSnapshot.children.forEach {
                     val ticketObj = it.value as HashMap<*, *>
                     val ticketId = it.key
                     val clientEmailFromTicket = ticketObj["clientEmail"].toString()
                     if (clientEmailFromTicket == auth.currentUser?.email) {
-                        counter++
+                        order++
                         val ticket = Ticket(
                                 eventId = ticketObj["eventId"].toString(),
                                 clientEmail = clientEmailFromTicket
@@ -86,7 +89,7 @@ class TicketsActivity : AppCompatActivity() {
                         textViewSingleTicket.background = ResourcesCompat.getDrawable(resources, R.drawable.my_single_layout_ticket_bg, null)
                         singleTicketLayout.addView(textViewSingleTicket)
                         textViewSingleTicket = TextView(context)
-                        val text = "Bilet nr ${counter.toString()}"
+                        val text = "Bilet nr $order"
                         textViewSingleTicket.text = text
                         textViewSingleTicket.textSize = 18f
                         textViewSingleTicket.textAlignment = View.TEXT_ALIGNMENT_CENTER
@@ -96,6 +99,7 @@ class TicketsActivity : AppCompatActivity() {
                             passTicketObject(ticketList[singleTicketLayout.tag as Int])
                         }
                         scrollLayout.addView(singleTicketLayout)
+                        counter++
                     }
                 }
             }

@@ -8,8 +8,10 @@ import android.view.Window
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import com.example.eventmaster.MainActivity
 import com.example.eventmaster.R
+import com.example.eventmaster.checkOnlineConnection
 import com.example.eventmaster.models.Event
 import com.example.eventmaster.models.Person
 import com.example.eventmaster.models.Ticket

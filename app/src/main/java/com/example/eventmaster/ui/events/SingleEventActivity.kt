@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.example.eventmaster.R
+import com.example.eventmaster.checkOnlineConnection
 import com.example.eventmaster.models.Event
 import com.example.eventmaster.models.Ticket
 import com.example.eventmaster.ui.tickets.TicketsActivity
@@ -69,17 +70,20 @@ class SingleEventActivity : AppCompatActivity() {
 
         val buttonJoin = findViewById<Button>(R.id.buttonSingleEventJoin)
         buttonJoin.setOnClickListener{
-            var amount = 0
-            if (ticketNumberComponent.text.toString().length == 1) {
-                amount = parseInt(ticketNumberComponent.text.toString())
-                if (amount > 3 || amount < 1) {
-                    ticketNumberComponent.error = "Można kupić od 1 do 3 biletów"
+            if (checkOnlineConnection(this)) {
+                var amount = 0
+                if (ticketNumberComponent.text.toString().length == 1) {
+                    amount = parseInt(ticketNumberComponent.text.toString())
+                    if (amount > 3 || amount < 1) {
+                        ticketNumberComponent.error = "Można kupić od 1 do 3 biletów"
+                    } else {
+                        checkJoinPossibilityAndJoin(extrasID as String, extrasEvent, authEmail, amount)
+                    }
                 } else {
-                    checkJoinPossibilityAndJoin(extrasID as String, extrasEvent, authEmail, amount)
+                    ticketNumberComponent.error = "Można kupić od 1 do 3 biletów"
                 }
-            } else {
-                ticketNumberComponent.error = "Można kupić od 1 do 3 biletów"
-            }
+            } else
+                Toast.makeText(this, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -199,9 +203,11 @@ class SingleEventActivity : AppCompatActivity() {
         }
         key.append('_')
 
+        var limit = 5
         for (i in name.indices) {
-            if (name[i].isUpperCase()) {
+            if (name[i].isUpperCase() && limit >= 0 ) {
                 key.append(name[i])
+                limit--
             }
         }
         return key.toString()

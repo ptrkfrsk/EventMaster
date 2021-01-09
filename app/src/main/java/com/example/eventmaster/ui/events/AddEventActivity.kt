@@ -1,8 +1,12 @@
 package com.example.eventmaster.ui.events
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.view.Window
 import android.widget.*
@@ -10,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.eventmaster.MainActivity
 import com.example.eventmaster.R
+import com.example.eventmaster.checkOnlineConnection
 import com.example.eventmaster.models.Event
 import com.google.firebase.database.FirebaseDatabase
 import java.lang.Integer.parseInt
@@ -28,7 +33,10 @@ class AddEventActivity : AppCompatActivity() {
 
         val buttonAdd = findViewById<Button>(R.id.buttonAddEventAdd);
         buttonAdd.setOnClickListener{
-            addEventToDatabase(database)
+            if (checkOnlineConnection(this))
+                addEventToDatabase(database)
+            else
+                Toast.makeText(this, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show()
         }
 
         val buttonCancel = findViewById<Button>(R.id.buttonAddEventCancel);

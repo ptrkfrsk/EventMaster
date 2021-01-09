@@ -29,7 +29,11 @@ class LoginActivity : AppCompatActivity() {
         buttonLogin.setOnClickListener{
             val editTextEmail = findViewById<EditText>(R.id.editTextEmail)
             val editTextPassword = findViewById<EditText>(R.id.editTextPassword)
-            loginUser(editTextEmail.text.toString(), editTextPassword.text.toString())
+            if (checkOnlineConnection(this))
+                loginUser(editTextEmail.text.toString(), editTextPassword.text.toString())
+            else
+                Toast.makeText(this, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show()
+
         }
     }
 
