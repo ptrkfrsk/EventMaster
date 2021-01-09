@@ -9,17 +9,20 @@
     <TextView
         android:id="@+id/textViewSingleTIcketEventName"
         android:layout_width="272dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:textSize="25sp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <TextView
         android:id="@+id/textViewSingleTicketDate"
-        android:layout_width="213dp"
-        android:layout_height="38dp"
+        android:layout_width="277dp"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,5 +49,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/qr_code" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

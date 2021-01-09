@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.marginBottom
 import com.example.eventmaster.MainActivity
 import com.example.eventmaster.R
 import com.example.eventmaster.models.Event
@@ -54,11 +55,13 @@ class TicketsActivity : AppCompatActivity() {
 
         val listener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var counter = 0
                 dataSnapshot.children.forEach {
                     val ticketObj = it.value as HashMap<*, *>
                     val ticketId = it.key
                     val clientEmailFromTicket = ticketObj["clientEmail"].toString()
                     if (clientEmailFromTicket == auth.currentUser?.email) {
+                        counter++
                         val ticket = Ticket(
                                 eventId = ticketObj["eventId"].toString(),
                                 clientEmail = clientEmailFromTicket
@@ -68,7 +71,7 @@ class TicketsActivity : AppCompatActivity() {
                         singleTicketLayout.setPadding(0, 30, 0, 30)
                         singleTicketLayout.tag = counter
                         singleTicketLayout.orientation = LinearLayout.VERTICAL
-                        val textViewSingleTicket = TextView(context)
+                        var textViewSingleTicket = TextView(context)
                         val id2Show = StringBuilder()
                         for (i in ticketId!!.indices) {
                             if (ticketId[i] == '-')
@@ -76,7 +79,16 @@ class TicketsActivity : AppCompatActivity() {
                             id2Show.append(ticketId[i])
                         }
                         textViewSingleTicket.text = id2Show
-                        textViewSingleTicket.textSize = 20f
+                        textViewSingleTicket.textSize = 23f
+                        textViewSingleTicket.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                        textViewSingleTicket.typeface = ResourcesCompat.getFont(context, R.font.advent_pro_semibold);
+                        textViewSingleTicket.setPadding(0, 5, 0, 5)
+                        textViewSingleTicket.background = ResourcesCompat.getDrawable(resources, R.drawable.my_single_layout_ticket_bg, null)
+                        singleTicketLayout.addView(textViewSingleTicket)
+                        textViewSingleTicket = TextView(context)
+                        val text = "Bilet nr ${counter.toString()}"
+                        textViewSingleTicket.text = text
+                        textViewSingleTicket.textSize = 18f
                         textViewSingleTicket.textAlignment = View.TEXT_ALIGNMENT_CENTER
                         textViewSingleTicket.typeface = ResourcesCompat.getFont(context, R.font.advent_pro_medium);
                         singleTicketLayout.addView(textViewSingleTicket)
@@ -84,7 +96,6 @@ class TicketsActivity : AppCompatActivity() {
                             passTicketObject(ticketList[singleTicketLayout.tag as Int])
                         }
                         scrollLayout.addView(singleTicketLayout)
-                        counter++
                     }
                 }
             }

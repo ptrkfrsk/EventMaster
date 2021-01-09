@@ -1,7 +1,6 @@
 package com.example.eventmaster.ui.events
 
 import android.content.Intent
-import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,13 +8,9 @@ import android.view.Window
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
-import com.example.eventmaster.LoginActivity
-import com.example.eventmaster.MainActivity
 import com.example.eventmaster.R
 import com.example.eventmaster.models.Event
-import com.example.eventmaster.models.Person
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -23,7 +18,6 @@ import com.google.firebase.database.ValueEventListener
 import java.io.Serializable
 import java.lang.Boolean.parseBoolean
 import java.lang.Integer.parseInt
-import java.time.LocalDateTime
 
 class SearchEventActivity : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
@@ -74,8 +68,10 @@ class SearchEventActivity : AppCompatActivity() {
                     var textViewSingleEvent = TextView(context)
                     textViewSingleEvent.text = event.name
                     textViewSingleEvent.textSize = 23f
+                    textViewSingleEvent.setPadding(0, 5, 0, 5)
                     textViewSingleEvent.textAlignment = View.TEXT_ALIGNMENT_CENTER
                     textViewSingleEvent.typeface = ResourcesCompat.getFont(context, R.font.advent_pro_semibold);
+                    textViewSingleEvent.background = ResourcesCompat.getDrawable(resources, R.drawable.my_single_layout_name_bg, null)
                     singleEventLayout.addView(textViewSingleEvent)
                     textViewSingleEvent = TextView(context)
                     textViewSingleEvent.text = event.date

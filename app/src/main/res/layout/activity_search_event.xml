@@ -19,9 +19,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:layout_width="369dp"
+        android:layout_width="match_parent"
         android:layout_height="519dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="0dp"
+        android:fadeScrollbars="false"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">

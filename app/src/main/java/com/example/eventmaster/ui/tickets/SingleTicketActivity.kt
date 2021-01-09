@@ -56,6 +56,7 @@ class SingleTicketActivity : AppCompatActivity() {
                     val eventId = it.key
                     if (eventId == id) {
                         val textViewEventName = findViewById<TextView>(R.id.textViewSingleTIcketEventName)
+                        val textViewEventDate = findViewById<TextView>(R.id.textViewSingleTicketDate)
                         val event = Event(
                                 name = eventObj["name"].toString(),
                                 description = eventObj["description"].toString(),
@@ -75,6 +76,7 @@ class SingleTicketActivity : AppCompatActivity() {
                         }
 
                         textViewEventName.text = event.name
+                        textViewEventDate.text = event.date
                     }
                 }
             }
