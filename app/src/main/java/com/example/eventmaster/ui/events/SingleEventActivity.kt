@@ -3,19 +3,16 @@ package com.example.eventmaster.ui.events
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.Window
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.eventmaster.R
 import com.example.eventmaster.models.Event
 import com.example.eventmaster.models.Ticket
 import com.example.eventmaster.ui.tickets.TicketsActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import java.io.Serializable
 import java.lang.Integer.parseInt
 import java.text.ParseException
@@ -36,7 +33,7 @@ class SingleEventActivity : AppCompatActivity() {
 
         val extrasEvent = intent.extras?.get("event") as Event
         val extrasID = intent.extras?.get("eventId")
-        val authEmail = auth.currentUser?.email
+        val authEmail = auth.currentUser?.email!!
         //Toast.makeText(this, extrasEvent.name, Toast.LENGTH_SHORT).show()
         val showNameComponent = findViewById<TextView>(R.id.textViewSingleEventName)
         showNameComponent.text = extrasEvent.name
@@ -62,11 +59,7 @@ class SingleEventActivity : AppCompatActivity() {
                 if (amount > 3 || amount < 1) {
                     ticketNumberComponent.error = "Można kupić od 1 do 3 biletów"
                 } else {
-                    val available = checkEventAvailability(extrasEvent.participantNumber, extrasEvent.takenPlaces, amount)
-                    if (!available)
-                        Toast.makeText(this, "Niestety, ale pozostało miejsc mniej niż: $amount", Toast.LENGTH_SHORT).show()
-                    else
-                        joinEvent(extrasID as String, extrasEvent, amount)
+                    checkJoinPossibilityAndJoin(extrasID as String, extrasEvent, authEmail, amount)
                 }
             } else {
                 ticketNumberComponent.error = "Można kupić od 1 do 3 biletów"
@@ -82,6 +75,39 @@ class SingleEventActivity : AppCompatActivity() {
             createTicket(data.extras?.get("eventId") as String, data.extras?.get("event") as Event, data.extras?.get("amount") as Int)
         else
             Toast.makeText(this, "Anulowano transakcję", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun checkJoinPossibilityAndJoin(eventId : String, event : Event, email : String, amount : Int) {
+        val ref = database.getReference("/Tickets")
+        val context = this
+        val listener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var ticketsAssigned = 0
+                dataSnapshot.children.forEach {
+                    val ticketObj = it.value as HashMap<*, *>
+                    if (ticketObj["clientEmail"].toString() == email && ticketObj["eventId"].toString() == eventId)
+                        ticketsAssigned++
+                }
+                if (checkUserLimit(ticketsAssigned, amount)) {
+                    if (checkEventAvailability(event.participantNumber, event.takenPlaces, amount))
+                        joinEvent(eventId, event, amount)
+                    else
+                        Toast.makeText(context, "Niestety, ale pozostało miejsc mniej niż: $amount", Toast.LENGTH_SHORT).show()
+                } else
+                    Toast.makeText(context, "Jeden użytkownik może posiadać maksymalnie 3 bilety na jedno wydarzenie. Masz już $ticketsAssigned.", Toast.LENGTH_SHORT).show()
+
+            }
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(context, "Problem przy walidacji uzyskiwania biletów", Toast.LENGTH_SHORT).show()
+            }
+        }
+        ref.addListenerForSingleValueEvent(listener)
+    }
+
+    private fun checkUserLimit(assigned : Int, amount : Int) : Boolean {
+        if (assigned + amount > 3)
+            return false
+        return true
     }
 
     private fun checkEventAvailability(max : Int, current : Int, new : Int) : Boolean {
