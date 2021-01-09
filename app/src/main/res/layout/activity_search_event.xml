@@ -8,10 +8,11 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="146dp"
+        android:layout_height="43dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
+        android:gravity="center_vertical"
         android:text="Wydarzenia"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/textView1523"

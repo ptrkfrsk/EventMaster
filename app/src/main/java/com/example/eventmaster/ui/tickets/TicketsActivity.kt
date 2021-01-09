@@ -8,6 +8,7 @@ import android.view.Window
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import com.example.eventmaster.MainActivity
 import com.example.eventmaster.R
 import com.example.eventmaster.models.Event
@@ -77,6 +78,7 @@ class TicketsActivity : AppCompatActivity() {
                         textViewSingleTicket.text = id2Show
                         textViewSingleTicket.textSize = 20f
                         textViewSingleTicket.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                        textViewSingleTicket.typeface = ResourcesCompat.getFont(context, R.font.advent_pro_medium);
                         singleTicketLayout.addView(textViewSingleTicket)
                         singleTicketLayout.setOnClickListener{
                             passTicketObject(ticketList[singleTicketLayout.tag as Int])

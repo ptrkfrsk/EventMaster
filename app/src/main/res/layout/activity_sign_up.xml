@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Hasło"
+        android:text="Hasło:"
         app:layout_constraintEnd_toStartOf="@+id/editTextSuPassword"
         app:layout_constraintHorizontal_bias="0.84"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="Email"
+        android:text="Email:"
         app:layout_constraintEnd_toStartOf="@+id/editTextSuEmail"
         app:layout_constraintHorizontal_bias="0.826"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,8 +54,8 @@
         android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="44dp"
         android:text="Dane logowania"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="36dp"
         android:text="Dane osobowe"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,17 +100,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="24dp"
-        android:text="Imię"
+        android:text="Imię:"
         app:layout_constraintEnd_toStartOf="@+id/editTextSuName"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <TextView
         android:id="@+id/textView30"
-        android:layout_width="39dp"
-        android:layout_height="19dp"
+        android:layout_width="33dp"
+        android:layout_height="14dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="20dp"
-        android:text="Adres"
+        android:text="Adres:"
         app:layout_constraintEnd_toStartOf="@+id/editTextSuAddress"
         app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
@@ -142,7 +142,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="20dp"
-        android:text="Numer konta"
+        android:text="Numer konta:"
         app:layout_constraintEnd_toStartOf="@+id/editTextSuAccount"
         app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
@@ -174,7 +174,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="20dp"
-        android:text="Telefon"
+        android:text="Telefon:"
         app:layout_constraintEnd_toStartOf="@+id/editTextSuPhone"
         app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
@@ -195,7 +195,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
-        android:text="Nazwisko"
+        android:text="Nazwisko:"
         app:layout_constraintEnd_toStartOf="@+id/editTextSuSurname"
         app:layout_constraintTop_toBottomOf="@+id/textView27" />
 

@@ -1,6 +1,7 @@
 package com.example.eventmaster.ui.events
 
 import android.content.Intent
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import com.example.eventmaster.LoginActivity
 import com.example.eventmaster.MainActivity
 import com.example.eventmaster.R
@@ -73,11 +75,13 @@ class SearchEventActivity : AppCompatActivity() {
                     textViewSingleEvent.text = event.name
                     textViewSingleEvent.textSize = 23f
                     textViewSingleEvent.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                    textViewSingleEvent.typeface = ResourcesCompat.getFont(context, R.font.advent_pro_semibold);
                     singleEventLayout.addView(textViewSingleEvent)
                     textViewSingleEvent = TextView(context)
                     textViewSingleEvent.text = event.date
                     textViewSingleEvent.textSize = 18f
                     textViewSingleEvent.textAlignment = View.TEXT_ALIGNMENT_CENTER
+                    textViewSingleEvent.typeface = ResourcesCompat.getFont(context, R.font.advent_pro_medium);
                     singleEventLayout.addView(textViewSingleEvent)
                     singleEventLayout.setOnClickListener{
                         passEventObject(intent, eventList[singleEventLayout.tag as Int], eventId as String)

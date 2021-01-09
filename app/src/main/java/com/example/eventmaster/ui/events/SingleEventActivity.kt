@@ -7,12 +7,14 @@ import android.view.View
 import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import com.example.eventmaster.R
 import com.example.eventmaster.models.Event
 import com.example.eventmaster.models.Ticket
 import com.example.eventmaster.ui.tickets.TicketsActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import org.w3c.dom.Text
 import java.io.Serializable
 import java.lang.Integer.parseInt
 import java.text.ParseException
@@ -34,17 +36,31 @@ class SingleEventActivity : AppCompatActivity() {
         val extrasEvent = intent.extras?.get("event") as Event
         val extrasID = intent.extras?.get("eventId")
         val authEmail = auth.currentUser?.email!!
-        //Toast.makeText(this, extrasEvent.name, Toast.LENGTH_SHORT).show()
         val showNameComponent = findViewById<TextView>(R.id.textViewSingleEventName)
         showNameComponent.text = extrasEvent.name
         val showDescriptionComponent = findViewById<TextView>(R.id.textViewSingleEventDescription)
         showDescriptionComponent.text = extrasEvent.description
         val showDateComponent = findViewById<TextView>(R.id.textViewSingleEventDate)
-        showDateComponent.text = extrasEvent.date.toString()
+        showDateComponent.text = extrasEvent.date.substring(11)
         val showLocationComponent = findViewById<TextView>(R.id.textViewSingleEventLocation)
         showLocationComponent.text = extrasEvent.location
-        // taken places component
+        val priceComponent = findViewById<TextView>(R.id.textViewSingleEventPrice)
+        if (extrasEvent.price != null) {
+            val text = "${"%.2f".format(extrasEvent.price)} zł"
+            priceComponent.text = text
+        }
+        else
+            priceComponent.text = "0 zł"
+
+        val remainingTicketsComponent = findViewById<TextView>(R.id.textViewSingleEventRemaining)
+        val remainingText = "Pozostało: ${(extrasEvent.participantNumber - extrasEvent.takenPlaces)} miejsc(a)"
+        remainingTicketsComponent.text = remainingText
         val ticketNumberComponent = findViewById<EditText>(R.id.editNumberSingleEventTicketNumber)
+        val calendar = findViewById<CalendarView>(R.id.calendarViewSingleEvent)
+        val calendarDate = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US).parse(extrasEvent.date)?.time as Long
+        calendar.date = calendarDate
+        calendar.minDate = calendarDate
+        calendar.maxDate = calendarDate
 
         val buttonCancel = findViewById<Button>(R.id.buttonSingleEventCancel)
         buttonCancel.setOnClickListener{

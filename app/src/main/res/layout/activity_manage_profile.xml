@@ -21,7 +21,7 @@
         android:id="@+id/editTextManageProfileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="68dp"
         android:layout_marginEnd="40dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="20dp"
-        android:text="Numer konta"
+        android:text="Numer konta:"
         app:layout_constraintEnd_toStartOf="@+id/editTextManageProfileAccount"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
-        android:text="Telefon"
+        android:text="Telefon:"
         app:layout_constraintEnd_toStartOf="@+id/editTextManageProfilePhone"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
@@ -87,7 +87,7 @@
         android:layout_height="17dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="20dp"
-        android:text="Imię"
+        android:text="Imię:"
         app:layout_constraintEnd_toStartOf="@+id/editTextManageProfileName"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
@@ -97,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="20dp"
-        android:text="Adres"
+        android:text="Adres:"
         app:layout_constraintEnd_toStartOf="@+id/editTextManageProfileAddress"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
@@ -118,7 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
-        android:text="Nazwisko"
+        android:text="Nazwisko:"
         app:layout_constraintEnd_toStartOf="@+id/editTextManageProfileSurname"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -158,8 +158,8 @@
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="44dp"
         android:text="Dane logowania"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -171,7 +171,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="92dp"
         android:layout_marginEnd="16dp"
-        android:text="Email"
+        android:text="Email:"
         app:layout_constraintEnd_toStartOf="@+id/editTextManageProfileEmail"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
@@ -179,8 +179,8 @@
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="32dp"
         android:text="Dane osobowe"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
