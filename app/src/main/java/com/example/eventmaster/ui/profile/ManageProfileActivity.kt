@@ -1,15 +1,18 @@
 package com.example.eventmaster.ui.profile
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.eventmaster.PasswordChangeActivity
 import com.example.eventmaster.R
 import com.example.eventmaster.checkOnlineConnection
 import com.example.eventmaster.models.Person
@@ -49,6 +52,11 @@ class ManageProfileActivity : AppCompatActivity() {
         val buttonCancel= findViewById<Button>(R.id.buttonManageProfileCancel)
         buttonCancel.setOnClickListener{
             finish()
+        }
+
+        val buttonChangePassword = findViewById<Button>(R.id.buttonManageProfileChangePassword)
+        buttonChangePassword.setOnClickListener{
+            startActivity(Intent(this, PasswordChangeActivity::class.java))
         }
     }
 

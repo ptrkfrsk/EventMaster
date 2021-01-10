@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
-        android:text="Moje Bilety"
+        android:text="Moje bilety"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/textView223"
         app:layout_constraintTop_toTopOf="parent" />
