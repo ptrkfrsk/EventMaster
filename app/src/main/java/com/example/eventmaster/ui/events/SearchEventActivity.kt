@@ -73,7 +73,7 @@ class SearchEventActivity : AppCompatActivity() {
                     var textViewSingleEvent = TextView(context)
                     textViewSingleEvent.text = event.name
                     textViewSingleEvent.textSize = 23f
-                    textViewSingleEvent.setPadding(0, 5, 0, 5)
+                    textViewSingleEvent.setPadding(15, 5, 15, 5)
                     textViewSingleEvent.textAlignment = View.TEXT_ALIGNMENT_CENTER
                     textViewSingleEvent.typeface = ResourcesCompat.getFont(context, R.font.advent_pro_semibold);
                     textViewSingleEvent.background = ResourcesCompat.getDrawable(resources, R.drawable.my_single_layout_name_bg, null)

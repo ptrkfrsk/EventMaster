@@ -34,7 +34,7 @@ class AddEventActivity : AppCompatActivity() {
         val buttonAdd = findViewById<Button>(R.id.buttonAddEventAdd);
         buttonAdd.setOnClickListener{
             if (checkOnlineConnection(this))
-                addEventToDatabase(database)
+                addEventToDatabase(database, buttonAdd)
             else
                 Toast.makeText(this, "Brak połączenia z internetem", Toast.LENGTH_SHORT).show()
         }
@@ -68,7 +68,7 @@ class AddEventActivity : AppCompatActivity() {
         startActivity(Intent(this, MainActivity::class.java))
     }
 
-    private fun addEventToDatabase(database: FirebaseDatabase) {
+    private fun addEventToDatabase(database: FirebaseDatabase, button : Button) {
         val nameComponent = findViewById<EditText>(R.id.editTextAddEventName)
         val descriptionComponent = findViewById<EditText>(R.id.editMultilineAddEventDescription)
         val dateComponent = findViewById<EditText>(R.id.editTextAddEventDate)
@@ -130,7 +130,7 @@ class AddEventActivity : AppCompatActivity() {
         if (isBlocked)
             return
 
-
+        button.isEnabled = false
         val event = Event(
                 nameComponent.text.toString(),
                 descriptionComponent.text.toString(),
@@ -149,6 +149,7 @@ class AddEventActivity : AppCompatActivity() {
                 Toast.makeText(this, "Dodano do bazy", Toast.LENGTH_SHORT).show()
                 finish()
             }
-        }
+        } else
+            button.isEnabled = true
     }
 }

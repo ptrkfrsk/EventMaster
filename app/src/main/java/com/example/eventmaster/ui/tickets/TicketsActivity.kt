@@ -85,7 +85,7 @@ class TicketsActivity : AppCompatActivity() {
                         textViewSingleTicket.textSize = 23f
                         textViewSingleTicket.textAlignment = View.TEXT_ALIGNMENT_CENTER
                         textViewSingleTicket.typeface = ResourcesCompat.getFont(context, R.font.advent_pro_semibold);
-                        textViewSingleTicket.setPadding(0, 5, 0, 5)
+                        textViewSingleTicket.setPadding(15, 5, 15, 5)
                         textViewSingleTicket.background = ResourcesCompat.getDrawable(resources, R.drawable.my_single_layout_ticket_bg, null)
                         singleTicketLayout.addView(textViewSingleTicket)
                         textViewSingleTicket = TextView(context)

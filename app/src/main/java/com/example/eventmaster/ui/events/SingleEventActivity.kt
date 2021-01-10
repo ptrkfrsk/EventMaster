@@ -25,6 +25,7 @@ import java.util.*
 class SingleEventActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
+    private lateinit var buttonJoin : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +35,7 @@ class SingleEventActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
 
+        buttonJoin = findViewById<Button>(R.id.buttonSingleEventJoin)
         val extrasEvent = intent.extras?.get("event") as Event
         val extrasID = intent.extras?.get("eventId")
         val authEmail = auth.currentUser?.email!!
@@ -68,7 +70,6 @@ class SingleEventActivity : AppCompatActivity() {
             finish()
         }
 
-        val buttonJoin = findViewById<Button>(R.id.buttonSingleEventJoin)
         buttonJoin.setOnClickListener{
             if (checkOnlineConnection(this)) {
                 var amount = 0
@@ -90,14 +91,17 @@ class SingleEventActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode : Int, resultCode: Int, data : Intent?) {
         // Success == 11
         // Failure == 7
-        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == requestCode && data != null)
             createTicket(data.extras?.get("eventId") as String, data.extras?.get("event") as Event, data.extras?.get("amount") as Int)
-        else
+        else {
             Toast.makeText(this, "Anulowano transakcję", Toast.LENGTH_SHORT).show()
+            buttonJoin.isEnabled = true
+        }
     }
 
     private fun checkJoinPossibilityAndJoin(eventId : String, event : Event, email : String, amount : Int) {
+        buttonJoin.isEnabled = false
         val ref = database.getReference("/Tickets")
         val context = this
         val listener = object : ValueEventListener {
@@ -111,13 +115,18 @@ class SingleEventActivity : AppCompatActivity() {
                 if (checkUserLimit(ticketsAssigned, amount)) {
                     if (checkEventAvailability(event.participantNumber, event.takenPlaces, amount))
                         joinEvent(eventId, event, amount)
-                    else
+                    else {
                         Toast.makeText(context, "Niestety, ale pozostało miejsc mniej niż: $amount", Toast.LENGTH_SHORT).show()
-                } else
+                        buttonJoin.isEnabled = true
+                    }
+                } else {
                     Toast.makeText(context, "Jeden użytkownik może posiadać maksymalnie 3 bilety na jedno wydarzenie. Masz już $ticketsAssigned.", Toast.LENGTH_SHORT).show()
+                    buttonJoin.isEnabled = true
+                }
 
             }
             override fun onCancelled(databaseError: DatabaseError) {
+                buttonJoin.isEnabled = true
                 Toast.makeText(context, "Problem przy walidacji uzyskiwania biletów", Toast.LENGTH_SHORT).show()
             }
         }
@@ -166,6 +175,7 @@ class SingleEventActivity : AppCompatActivity() {
         intent.putExtra("amount", amount)
         intent.putExtra("eventId", eventId)
         intent.putExtra("event", event as Serializable)
+        buttonJoin.isEnabled = false
 
         startActivityForResult(intent, 11)
 
@@ -205,7 +215,7 @@ class SingleEventActivity : AppCompatActivity() {
 
         var limit = 5
         for (i in name.indices) {
-            if (name[i].isUpperCase() && limit >= 0 ) {
+            if ((name[i].isUpperCase() || name[i].isDigit()) && limit >= 0 ) {
                 key.append(name[i])
                 limit--
             }

@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase
 class SignUpActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
+    private lateinit var buttonSuSignUp : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +29,7 @@ class SignUpActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance();
 
-        val buttonSuSignUp = findViewById<Button>(R.id.buttonSuSignUp)
+        buttonSuSignUp = findViewById<Button>(R.id.buttonSuSignUp)
         buttonSuSignUp.setOnClickListener{
             if (checkOnlineConnection(this))
                 checkDataAndCreateUser(database)
@@ -101,6 +102,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun createAuthUser(emailComponent : EditText, passwordComponent: EditText, person : Person){
         val email = emailComponent.text.toString()
         val password = passwordComponent.text.toString()
+        buttonSuSignUp.isEnabled = false
 
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
@@ -112,6 +114,7 @@ class SignUpActivity : AppCompatActivity() {
                         }
                         else {
                             Toast.makeText(baseContext, "Wystąpił problem z danymi użytkownika. Skontaktuj się z pomocą techniczną", Toast.LENGTH_SHORT).show()
+                            buttonSuSignUp.isEnabled = true
                         }
                     } else {
                         try {
@@ -125,7 +128,7 @@ class SignUpActivity : AppCompatActivity() {
                         } catch (exception : Exception) {
                             Toast.makeText(baseContext, "Nie udało się zarejestrować", Toast.LENGTH_SHORT).show()
                         }
-
+                        buttonSuSignUp.isEnabled = true
                     }
                 }
     }
