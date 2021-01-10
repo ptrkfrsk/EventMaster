@@ -106,11 +106,25 @@ class AddEventActivity : AppCompatActivity() {
             }
         }
 
+        val dateString = dateComponent.text.toString()
          try {
-             SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US).parse(dateComponent.text.toString())
+             SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US).parse(dateString)
          } catch (exception : ParseException) {
-             dateComponent.error = "Zły format daty"
+             dateComponent.error = "Zły format lub brak daty"
              isBlocked = true
+         } finally {
+             if (dateString.length != 16 || dateString[4] != '-' || dateString[7] != '-' || dateString[13] != ':') {
+                 dateComponent.error = "Zły format lub brak daty"
+                 isBlocked = true
+             } else {
+                 if (parseInt(dateString.substring(5, 7)) < 1 || parseInt(dateString.substring(5, 7)) > 12
+                         || parseInt(dateString.substring(8, 10)) < 1 || parseInt(dateString.substring(8, 10)) > 31
+                         || parseInt(dateString.substring(11, 13)) < 0 || parseInt(dateString.substring(11, 13)) > 23
+                         || parseInt(dateString.substring(14)) < 0 || parseInt(dateString.substring(14)) > 59) {
+                     dateComponent.error = "Zły format daty"
+                     isBlocked = true
+                 }
+             }
          }
 
         if (isBlocked)
